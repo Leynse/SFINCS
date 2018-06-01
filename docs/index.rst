@@ -16,6 +16,9 @@ Welcome to SFINCS's documentation!
    
    project
    input
+   parameters
+   Output
+   waves
    
     
 Acknowledgements
