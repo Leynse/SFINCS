@@ -20,7 +20,7 @@ A bathymetry is defined in sfincs.dep, depth is down.
 Depth-file
 %%%%%
 
-% depfile - sfincs.dep
+depfile - sfincs.dep
 
 % zbx0y0 zbx1y0 %
 
@@ -54,6 +54,7 @@ Boundary locations
 %%%%%
 
 First specify the input locations.
+
 bndfile - sfincs.bnd 
 
 % xloc1 yloc1 %
@@ -81,7 +82,7 @@ A simple implementation of discharge points is added to SFINCS, specify values i
 Location
 %%%%%
 
-srcfile = fincs.src 
+srcfile = sfincs.src 
 
 % xloc1 yloc1 %
 
@@ -114,11 +115,13 @@ Delft3D-meteo input:
 %%%%%
 
 Wind:
+
 amufile = 'sfincs.amu'
 
 amvfile = 'sfincs.amv'
 
 Rain:
+
 amprfile = 'sfincs.ampr'
 
 Spatially-uniform wind input:
