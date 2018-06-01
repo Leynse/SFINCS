@@ -1,0 +1,2 @@
+# SFINCS
+Manual for SFINCS
