@@ -15,7 +15,7 @@ Welcome to SFINCS's documentation!
    :caption: Contents:
    
    project
-
+   input
    
     
 Acknowledgements
