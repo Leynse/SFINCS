@@ -1,0 +1,39 @@
+.. partable:: Overview of available keywords related to *
+
+	advection
+	  :description:	setting for advection. 0 for no advections scheme, 1 for 1D advection scheme for modelling in 1D OR 2 for 2D advection scheme for modelling in 2D.
+	  :units:	-
+	  :default:	0
+	  :min:		0
+	  :max:		2
+	alpha
+	  :description:	CFl-condition reduction. Decrease for additional numerical stability, minimum value is 0.1 and maximum is 0.75.
+	  :units:	-	
+	  :default:	0.75		
+	  :min:		0.1	
+	  :max:		0.75		  
+	huthresh
+	  :description:	Minimum flow depth limiter.
+	  :units:	m
+	  :default:	0.05
+	  :min:		0
+	  :max:		-
+	theta
+	  :description:	Smoothing factor in momentum equation.
+	  :units:	-
+	  :default:	0.9
+	  :min:		0
+	  :max:		1
+	zsini
+	  :description:	Initial water level.
+	  :units:	m
+	  :default:	0
+	  :min:		-
+	  :max:		-
+	qinf
+	  :description:	Infiltration rate. specify in -m^3/s (negative sign for infiltration)!
+	  :units:	m^3s^-1
+	  :default:	0
+	  :min:		-
+	  :max:		0  
+		
