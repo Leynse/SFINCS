@@ -1,0 +1,30 @@
+.. partable:: Overview of available keywords related to *
+
+	tref
+	  :description:	Reference date in 'yyyymmdd HHMMSS'
+	  :units:	-
+	  :default:	0
+	tstart
+	  :description:	Start date in 'yyyymmdd HHMMSS'
+	  :units:	-	
+	  :default:	0.75				  
+	tstop
+	  :description:	Stop date in 'yyyymmdd HHMMSS'
+	  :units:	m
+	  :default:	0.05
+	  :min:		0
+	  :max:		-
+	dtout
+	  :description:	Time-step global map output.
+	  :units:	s
+	  :default:	0
+	dthisout
+	  :description:	Time-step observation points output.
+	  :units:	m
+	  :default:	600
+	dtwnd
+	  :description:	Timestep wind update (only for spiderweb?)
+	  :units:	s
+	  :default:	1800
+
+		
