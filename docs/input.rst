@@ -8,7 +8,7 @@ Overview
 Grid
 ----------------------
 
-SFINCS uses a staggered equidistant recti-linear grid, grid sizes for x- an y-direction can be different. SFINCS can only be used in cartesian coordinates. 
+SFINCS uses a staggered equidistant recti-linear grid, grid sizes for x- a y-direction can be different. SFINCS can only be used in cartesian coordinates. 
 See also Delft Dasboard (OET) for the generation of a grid. Specify x0/y0/rotation/dx/dy/mmax/nmax.
 
 
