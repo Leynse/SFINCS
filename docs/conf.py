@@ -18,6 +18,7 @@ import os
 import shlex
 import sphinx_rtd_theme
 from sphinx.ext.autodoc import cut_lines
+from openearth.sphinxcontrib-partable import sphinxcontrib
 
 
 def setup(app):
