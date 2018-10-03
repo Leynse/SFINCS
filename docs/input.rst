@@ -31,7 +31,7 @@ Mask-file
 ----------------------
 
 SFINCS uses a masker file to distinguish boundary (value=2)/active (value=1)/non-active (value=0) points within the supplied grid.
-The file is normally make with the OET script 'sfincs_make_mask.m', where by default a value of -2 m to MSL is used to distguish the cells.
+The file can be made with the OET script 'sfincs_make_mask.m', whereby default a value of -2 m to MSL is used to distinguish the cells.
 
 %%%%%
 
@@ -53,7 +53,7 @@ Water-level boundaries
 Boundary locations
 %%%%%
 
-First specify the input locations.
+First, specify the input locations.
 
 bndfile - sfincs.bnd 
 
@@ -103,7 +103,7 @@ disfile = sfincs.dis
 Wind and rain
 ----------------------
 
-There are a few different options to specify wind and rain input. The first is to use a spatially varying spiderweb input (as in Delft3D) for only the wind input, or for the wind as well as the rain input. The second is to use a spatially varying grid input (as in Delft3D) for the u- and v-velocties and/or the rain input. At the last it is also possible to use a spatially uniform input for wind and rain, which is faster but also more simplified. For the wind input the drag coefficients are wind-speeds dependent, see below.
+There are a few different options to specify wind and rain input. The first is to use a spatially varying spiderweb input (as in Delft3D) for only the wind input, or for the wind as well as the rain input. The second is to use a spatially varying grid input (as in Delft3D) for u- and v-velocities and/or the rain input. At the last, it is also possible to use a spatially uniform input for wind and rain, which is faster but also more simplified. For the wind input, the drag coefficients are wind-speeds dependent, see below.
 
 Spiderweb-input:
 %%%%% 
@@ -175,5 +175,3 @@ Spatially varying:
 % manning_land = -999 (default) %
 
 % manning_Sea = -999 (default) %
-
-
