@@ -28,10 +28,10 @@ or using Matlab scripts from the OpenEarthTools (OET, https://svn.oss.deltares.n
 	geomskfile	= sfincs.gms
 	indexfile       = sfincs.ind
 
-	bndfile        = sfincs.bnd
-	bzsfile        = sfincs.bzs
-	spwfile        = sfincs.spw
-	amprfile       = sfincs.ampr
+	bndfile         = sfincs.bnd
+	bzsfile         = sfincs.bzs
+	spwfile         = sfincs.spw
+	amprfile        = sfincs.ampr
 
 	advection	= 0
 	alpha           = 0.75
@@ -110,7 +110,7 @@ Additionally a geo-mask & index file can  made using OET script 'sfincs_make_geo
 	geomskfile	= sfincs.gms
 	indexfile       = sfincs.ind
 
-Input format bathymetry
+Input format 
 %%%%%
 
 The depth/mask/geomask/index-files can be binary or ASCII files. 
@@ -243,8 +243,6 @@ Rain input in mm/hr.
 
 
 **Drag Coefficients:**
-For the wind input, the drag coefficients are wind-speeds dependent, see below.
-
 
 The drag coefficients are varying with wind speed and implemented as in Delft3D. 
 The default values are based on Vatvani et al. (2012). 
@@ -307,7 +305,7 @@ For spatially varying a reference level in meters 'rgh_lev_land' is used to dist
 Time management
 ----------------------
 The required model runtime can be specified by setting a reference date (tref), start date (tstart) and stop date (tstop). 
-The format is 'yyyymmdd HHMMSS', see below
+The format is 'yyyymmdd HHMMSS', see below:
 
 .. code-block:: text
 
@@ -338,7 +336,7 @@ For the former specify 'outputformat = bin' (default), for the latter specify 'o
 Output files
 %%%%%
 
-**keywords*
+**keywords**
 
 .. code-block:: text
 	hmaxfile 	= hmax.dat
