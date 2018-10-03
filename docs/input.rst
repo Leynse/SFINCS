@@ -11,8 +11,10 @@ For more information regarding specific parameters see the pages 'Input paramete
 The required input files can also be made using the model maker of SFINCS in Delft Dashboard (https://publicwiki.deltares.nl/display/DDB/Delft+Dashboard),
 or using Matlab scripts from the OpenEarthTools (OET, https://svn.oss.deltares.nl/repos/openearthtools/trunk/matlab/applications/DelftDashBoard/general/sfincs/).
 
-** sfincs.inp**
+**sfincs.inp**
+
 .. code-block:: text
+
 	x0              = 0
 	y0              = 0	
 	mmax            = 100
@@ -182,12 +184,17 @@ Wind and rain
 %%%%%
 
 There are a few different options to specify wind and rain input: 
+
 1) Use a spatially varying spiderweb input (as in Delft3D) for only the wind input, or for the wind as well as the rain input. 
+
 2) Use a spatially varying grid input (as in Delft3D) for u- and v-velocities and/or the rain input. 
+
 3) Use a spatially uniform input for wind and rain, which is faster but also more simplified.
+
 4) Make a combination, for instance use a spiderweb for the wind input and a spatially uniform rain-input. When combining, test whether the forcing is as wanted since not all combinations might be possible.
 
-For the wind input, the drag coefficients are wind-speeds dependent, see below.
+
+
 
 **Spiderweb-input:**
 
@@ -230,23 +237,26 @@ Rain input in mm/hr.
 
 .. code-block:: text
 
-	% t0 prcp0 %
+	<time 1> <prcp0>
 
-	% t1 prcp1 %
-
-
-Drag Coefficients: 
+	<time 2> <prcp1>
 
 
-The drag coefficients are varying with wind speed and implemented as in Delft3D. The values are based on Vatvani et al. (2012). There is specified for how many points 'cd_nr' a velocity 'cd_wnd' and a drag coefficient 'cd_val' is specified, the following are the default values:
+**Drag Coefficients:**
+For the wind input, the drag coefficients are wind-speeds dependent, see below.
+
+
+The drag coefficients are varying with wind speed and implemented as in Delft3D. 
+The default values are based on Vatvani et al. (2012). 
+There is specified for how many points 'cd_nr' a velocity 'cd_wnd' and a drag coefficient 'cd_val' is specified, the following are the default values:
 
 .. code-block:: text
 
-	% cd_nr = 3 %
+	cd_nr = 3 
 
-	% cd_wnd = 0 28 50 %
+	cd_wnd = 0 28 50 
 
-	% cd_val = 0.0010 0.0025 0.0015 %
+	cd_val = 0.0010 0.0025 0.0015 
 
 
 Waves
@@ -270,22 +280,28 @@ A varying time-series can for now be forced using the previously mentioned water
 Friction
 ----------------------
 
-Friction is specified with a Manning roughness coefficient 'n' [s/m^{1/3}]. This can be done spatially uniform or spatially varying where a reference level in meters 'rgh_lev_land' is used to distinguish land 'manning_land' and sea 'manning_sea' with different friction values.
+Friction is specified with a Manning roughness coefficient 'n' [s/m^{1/3}] and can be done spatially uniform or spatially varying.
+
 
 Spatially uniform:
 %%%%%
+
+Specify the keyword:
+
 manning = 0.04 (default)
 
 Spatially varying:
 %%%%%
 
+For spatially varying a reference level in meters 'rgh_lev_land' is used to distinguish land 'manning_land' (depth>rgh_lev_land) and sea 'manning_sea' (depth<rgh_lev_land) with different friction values.
+
 .. code-block:: text
 
-	% rgh_lev_land = 0 (default) %
+	rgh_lev_land = 0 (default) 
 
-	% manning_land = -999 (default) %
+	manning_land = -999 (default) 
 
-	% manning_Sea = -999 (default) %
+	manning_Sea = -999 (default) 
 
 
 Time management
@@ -323,6 +339,7 @@ Output files
 %%%%%
 
 **keywords*
+
 .. code-block:: text
 	hmaxfile 	= hmax.dat
 	hmaxgeofile 	= hmaxgeo.dat
