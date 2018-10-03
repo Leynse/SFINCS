@@ -18,7 +18,6 @@ import os
 import shlex
 import sphinx_rtd_theme
 from sphinx.ext.autodoc import cut_lines
-from openearth.sphinxcontrib-partable import sphinxcontrib
 
 
 def setup(app):
@@ -44,9 +43,7 @@ extensions = [
     #'sphinxcontrib.napoleon',
     'sphinx.ext.mathjax',
    # 'sphinxcontrib.bibtex',
-    'sphinx.ext.viewcode',
-    'sphinxcontrib.partable',
-    'breathe',    
+    'sphinx.ext.viewcode',  
 ]
 
 # Add any paths that contain templates here, relative to this directory.

@@ -1,4 +1,3 @@
-.. partable:: Overview of available keywords related to parameters
 
 	advection
 	  :description:		setting for advection. 0 for no advection scheme (SFINCS-LIE), 1 for 1D advection scheme for modelling in 1D OR 2 for 2D advection scheme for modelling in 2D (SFINCS-SSWE).
