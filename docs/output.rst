@@ -6,16 +6,30 @@ Different output parameters can be changed, see below. Also observation points c
 Parameters
 -----
 
-.. include:: tables/output_parameters.tab
 
+	tref
+	  :description:	Reference date in 'yyyymmdd HHMMSS'
+	  :units:	-
+	  :default:	
+	tstart
+	  :description:	Start date in 'yyyymmdd HHMMSS'
+	  :units:	-	
+	  :default:					  
+	tstop
+	  :description:	Stop date in 'yyyymmdd HHMMSS'
+	  :units:	m
+	  :default:	
+	dtout
+	  :description:	Time-step global map output.
+	  :units:	s
+	  :default:	0
+	dthisout
+	  :description:	Time-step observation points output.
+	  :units:	m
+	  :default:	600
+	dtwnd
+	  :description:	Time-interval wind update (only for spiderweb)
+	  :units:	s
+	  :default:	1800
 
-Observation points
------
-
-Observation points for water level/water depth output, precipitation rate when applicable.
-
-obsfile = sfincs.obs 
-
-% xloc1 yloc1 %
-
-% xloc2 yloc2 % 
+		
