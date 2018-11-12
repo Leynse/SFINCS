@@ -40,8 +40,8 @@ Parameters
 	  :min:			-
 	  :max:			-
 	qinf
-	  :description:		Infiltration rate. specify in -m^3/s (negative sign for infiltration)!
-	  :units:		m^3s^-1
+	  :description:		Infiltration rate. specify in -m/s (negative sign for infiltration)!
+	  :units:		m/s
 	  :default:		0
 	  :min:			-
 	  :max:			0  
