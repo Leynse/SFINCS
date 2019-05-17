@@ -68,7 +68,7 @@ If desired the grid can also be rotated using 'rotation', in degrees from the x-
 
 Depth-file
 %%%%%
-A bathymetry is defined in sfincs.dep based on the specified grid, depth is down.
+A bathymetry is defined in sfincs.dep based on the specified grid, positive is upwards with respect to a reference level (topography has positive values, bathymetry has negative values).
 
 
 **depfile = sfincs.dep**
