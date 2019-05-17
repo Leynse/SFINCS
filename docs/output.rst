@@ -25,7 +25,7 @@ Parameters
 	  :default:	0
 	dthisout
 	  :description:	Time-step observation points output.
-	  :units:	m
+	  :units:	s
 	  :default:	600
 	dtwnd
 	  :description:	Time-interval wind update (only for spiderweb)
