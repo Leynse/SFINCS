@@ -6,9 +6,15 @@
 Welcome to SFINCS's documentation!
 ======================================
 
-'SFINCS' is the project regarding computationally efficient modelling of compound flooding with the explicit inclusion of wave-driven processes. This site gives a documentation regarding the SFINCS model (Super-Fast INundation of CoastS).
-This documentation is however still under construction, mail 'tim.leijnse@deltares.nl' for questions that are not answered yet by this documentation.
-Also let us know when you are not yet a user of SFINCS, but would like to get started!
+'SFINCS' is the reduced-complexity model designed for super-fast modelling of compound flooding events in a dynamic way!
+For an introduction of the model see the journal publication: https://doi.org/10.1016/j.coastaleng.2020.103796
+For a second application in tsunami modelling see the journal publication: https://doi.org/10.3390/jmse9050453
+More information regarding recent advancements with subgrid features can be seen in this online poster: https://agu2020fallmeeting-agu.ipostersessions.com/Default.aspx?s=9C-05-18-CF-F1-2B-17-F0-7A-21-93-E6-13-AE-F3-24
+
+This online documentation describes the input files and parameters of the SFINCS model (Super-Fast INundation of CoastS).
+The documentation is however still under construction, mail 'tim.leijnse@deltares.nl' for questions that are not answered yet by this documentation.
+Also let us know when you are not yet a user of SFINCS, but are interested to get started!
+The SFINCS executable is not yet shared open source, but will be in the future, and maybe in the meantime a collaboration is possible.
 
 .. toctree::
    :maxdepth: 2
@@ -18,15 +24,14 @@ Also let us know when you are not yet a user of SFINCS, but would like to get st
    input
    parameters
    output
-   numerical_implementation
-   validation
    example
    
     
 Acknowledgements
 ================
 
-SFINCS is initially developed by Maarten van Ormondt at Deltares. A first MSc thesis regarding model evaluation and development is performed by Tim van Engelen (https://repository.tudelft.nl/islandora/object/uuid%3Acb904f76-8771-42ab-b069-d645f5c8f7d0?collection=education) and a second one by Tim Leijnse (https://repository.tudelft.nl/islandora/object/uuid%3A53037d4d-d7a9-4f71-9b22-8c329f2b384c?collection=education). Also the model is applied in the flood risk assessment of the MSc thesis of Luisa Torres Duenas (https://repository.tudelft.nl/islandora/object/uuid%3A3d2791c1-902f-4107-a5ed-2bb41d4de592?collection=education). 
+SFINCS is developed at Deltares and initiated by Maarten van Ormondt.
+This documentation is developed and maintained by Tim Leijnse
 
 
 
