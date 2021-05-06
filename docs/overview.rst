@@ -64,11 +64,18 @@ Generally a model is setup with the offshore boundary in the swash zone, good pr
 In SFINCS it is possible to distinguish cells that are made inactive in the computation so it will not slow your model down (in this case everywhere deeper than 2m water depth).
 In some cases local rainfall might be relevant too for a coastal model.
 
+   
 Coral reef model
 ^^^^^^^^^
 SFINCS models have also been setup in coral reef type environments, where individual waves are forced to compute wave-driven flooding.
 This generally has a large contribution to flooding for Small Island Developping States (SIDS) or other coasts/islands with coral reef type coasts.
 
+.. figure:: ./figures/Figure_urban_model.png
+   :width: 800px
+   :align: center
+
+   SFINCS model for Sao Tome en Principe, figure from: https://doi.org/10.5194/nhess-20-2397-2020
+   
 Tsunami model
 ^^^^^^^^^
 As an additional type of coastal model, SFINCS has also been used for modelling tsunami's.
@@ -76,6 +83,12 @@ Generally this would be an overland model forced with a tsunami wave as computed
 However, in the paper of Robke et al. 2021 SFINCS was also used for the first time to calculate the offshore propagation in a very short amount of time too.
 Get in touch to hear more about possibilities for tsunami modelling with SFINCS.
 
+.. figure:: ./figures/Figure_tsunami_model.jpg
+   :width: 600px
+   :align: center
+
+   Overland and offshore SFINCS models modelling the 2011 Tohoku tsunami near Japan, figure from: https://doi.org/10.3390/jmse9050453
+   
 Storm surge model
 ^^^^^^^^^
 Since speed is wanted everywhere, also tests have been done to let SFINCS model offshore storm surge during tropical cyclones.
@@ -88,6 +101,12 @@ Generally at the upstream end of rivers, one can provide discharge points with d
 At the downstream end of rivers, water level time-series need to be specified, which in case of sub-critical flow conditions will influence the flow upstream.
 Additionaly, besides the general river discharge, local rainfall adding water to the river can be very relevant too.
 
+.. figure:: ./figures/Figure_urban_model.png
+   :width: 800px
+   :align: center
+
+   SFINCS model for Vientiane, Laos.
+   
 Urban model
 ^^^^^^^^^
 For urban environments the local situation of varying land use conditions can heavily influence the local flow.
@@ -96,16 +115,35 @@ The curve number method of infiltration will distinguish what part of falling pr
 To test out the effect of interventions, it is possible to insert different types of structures into the SFINCS model.
 These can be thin dams, levees, sea walls, simple drainage pumps or culverts.
 
+.. figure:: ./figures/Figure_urban_model.png
+   :width: 800px
+   :align: center
+
+   SFINCS model for Houston, TX, during Hurricane Harvey (2017)
+
 Flash flood model
 ^^^^^^^^^
 In recent tests, SFINCS has also been used to model flash floods.
 In these events, a short but intense rainfall event falls onto a domain and together with a steep profile can lead to significant water depths and flow velocities.
 Get in touch to hear more about possibilities for fast flash-flood modelling with SFINCS.
 
+.. figure:: ./figures/Figure_flashflood_model.png
+   :width: 800px
+   :align: center
+
+   SFINCS model for Izmir, Turkey
+
+
 Compound flooding model
 ^^^^^^^^^
 In a compound flooding model, all relevant types of forcing from either coastal, coral, riverine or urban models can be combined into 1 domain.
 Hereby the joint effect of multiple flood drivers that can enhance flooding can be taken into account.
+
+.. figure:: ./figures/Figure_compound_model.png
+   :width: 800px
+   :align: center
+
+   SFINCS model for Jacksonville, FL, during Hurricane Irma (2017), figure from: https://doi.org/10.1016/j.coastaleng.2020.103796
 
 
 Applications where SFINCS was used
