@@ -4,12 +4,18 @@ Input description
 Overview
 ----------------------
 
-The input for SFINCS is supplied using various text-files, which are linked through the main input file: sfincs.inp.
-Below an example is given of this file, which uses a keyword/value layout. 
+The input for SFINCS is supplied using various text and binary files, which are linked through the main input file: sfincs.inp.
 Within this section of the input description all major input settings and files are discussed.
+The figure below gives an overview of all different types of input files and whether they are required or not.
+Below an example is given of this file, which uses a keyword/value layout. 
 For more information regarding specific parameters see the pages 'Input parameters' or 'Output parameters'.
-The required input files can also be made using the model maker of SFINCS in Delft Dashboard (https://publicwiki.deltares.nl/display/DDB/Delft+Dashboard),
-or using Matlab scripts from the OpenEarthTools (OET, https://svn.oss.deltares.nl/repos/openearthtools/trunk/matlab/applications/DelftDashBoard/general/sfincs/).
+
+.. figure:: ./figure/SFINCS_documentation_figure1.png
+   :width: 400px
+   :align: center
+
+   Overview of input file of SFINCS with indication whther they are required or not
+
 
 **sfincs.inp**
 
@@ -25,7 +31,6 @@ or using Matlab scripts from the OpenEarthTools (OET, https://svn.oss.deltares.n
 	
 	depfile         = sfincs.dep
 	mskfile         = sfincs.msk
-	geomskfile	= sfincs.gms
 	indexfile       = sfincs.ind
 
 	bndfile         = sfincs.bnd
@@ -45,14 +50,14 @@ or using Matlab scripts from the OpenEarthTools (OET, https://svn.oss.deltares.n
 	tstop           = 20180001 000000
 	
 	dtout           = 3600
+	dtmaxout        = 86400	
 	dthisout        = 600
 
 	inputformat     = bin
-	outputformat    = bin
+	outputformat    = net
 	
 	zsfile          = zs.dat
 	hmaxfile        = hmax.dat
-	hmaxgeofile     = hmaxgeo.dat	
 	
 	obsfile         = sfincs.obs
 	
@@ -98,16 +103,15 @@ The file can be made with the OET script 'sfincs_make_mask.m', whereby default a
 	<msk (x0,y1)> <msk (x1,y1)>
 
 
-Geo-mask & index file
+Index file
 %%%%%
 
-Additionally a geo-mask & index file can  made using OET script 'sfincs_make_geomask_file.m', these files are needed when converting the model output the google earth kml-files when post-processing.
+Additionally a index file is needed when supplying binary input files (inputformat = bin)
 
 **keywords**
 
 .. code-block:: text
 
-	geomskfile	= sfincs.gms
 	indexfile       = sfincs.ind
 
 Input format 
@@ -315,11 +319,13 @@ The format is 'yyyymmdd HHMMSS', see below:
 
 Also the output date inverval can be controlled.
 For the map output there is data output every 'dtout' seconds, for optional observation points this is 'dthisout' seconds.
+It also possible to get the maximum output data over a specific interval (e.g. every day), specify using 'dtmaxout' in seconds.
 When using a spiderweb-file for the wind input, the values are updated every 'dtwnd' seconds.
 
 .. code-block:: text
 
-	dtout 		= 600
+	dtout 		= 3600
+	dtmaxout 	= 86400
 	dthisout 	= 600
 	dtwnd 		= 1800
 
@@ -330,17 +336,17 @@ Model output
 Output format
 %%%%%
 
-The main map output can be binary or ASCII files. 
-For the former specify 'outputformat = bin' (default), for the latter specify 'outputformat = asc'.
+The main map output can be netcdf, binary or ASCII files. 
+For the former specify 'outputformat = net' (default), for the others specify 'outputformat = bin' or 'outputformat = asc'.
 
 Output files
 %%%%%
 
-**keywords**
+In case of netcdf output the map output will be named 'sfincs_map.nc', in case observation points are provided also a second file will be created with observation point output named 'sfincs_his.nc'.
+For binary or ascii files the output will be written to separate files, of which the named can be changed:
 
 .. code-block:: text
 	hmaxfile 	= hmax.dat
-	hmaxgeofile 	= hmaxgeo.dat
 	zsfile 		= zs.dat
 	vmaxfile 	= vmax.dat
 
@@ -348,13 +354,14 @@ Observation points
 %%%%%
 
 Observation points with water depth and water level output can be specified.
-Per observation point the x-and y- coordinates are stated.
+Per observation point as minimal the x-and y- coordinates are stated, an standard name will then be added per point.
+Also, names of a station can be provided with quotes '' (maximum of 256 characters):
 
 **obsfile = sfincs.obs**
 
 .. code-block:: text
 
-	<obs1 x1> <obs1 y1>  
+	<obs1 x1> <obs1 y1>  <obs1 'name1'>
 	
-	<obs2 x2> <obs2 y2>  
+	<obs2 x2> <obs2 y2>  <obs2 'name2'>
 
