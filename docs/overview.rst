@@ -21,40 +21,19 @@ However, large numbers of computations need to be run in a probabilistic approac
 Current modelling approaches are either fast but too simple (bathtub approach) or models are very accurate but too slow (e.g. Delft3D, XBeach).
 SFINCS balances a high computational efficiency with adequate accuracy.
 
+.. figure:: ./figures/Figure_speed.png
+   :width: 800px
+   :align: center
+
+   The goal of SFINCS: speed! (Icon made by https://www.flaticon.com/authors/vectors-market)
+
 Compound flooding?
 ^^^^^^^^^
 Compound flooding is described as events occurring in coastal areas where the interaction of high sea levels, large river discharges and local precipitation causes (extreme) flooding (Wahl et al., 2015).
 To simulate compound flooding events, a model needs to be able to model all these types of forcings. Therefore, SFINCS includes fluvial, pluvial, tidal, wind- and wave-driven processes!
 
-Validation cases
-^^^^^^^^^
-The model is validated in the recently published paper about SFINCS:
-
-"Modeling compound flooding in coastal systems using a computationally efficient reduced-physics solver: including fluvial, pluvial, tidal, wind- and wave-driven processes" - Leijnse et al. 2020 - 
-
-Performed tests here were:
-
-* Environmental Agency test 2: Filling of floodplain depressions
-
-* Environmental Agency test 5: River valley flooding
-
-* Dam-break test with an initial wet bed
-
-* Carrier and Greenspan (1958) wave runup
-
-* Compound flooding during Hurricane Irma at Jacksonville, Florida
-
-* Wave-driven flooding during Typhoon Haiyan at Hernani, the Philippines
-
-Currently, a hindcast of the flooding at Houston, Texas, during Hurricane Harvey as modelled by SFINCS is in review: 
-
-"Hindcast of Pluvial, Fluvial, and Coastal Flood Damage in Houston, Texas during Hurricane Harvey (2017) using SFINCS" Sebastian et al. 2020, in review
-
-
-
 Types of environments to use SFINCS for
 -----
->TODO: add figures of coastal, riverine, urban, tsunami and compound flooding type SFINCS models<
 
 Coastal model
 ^^^^^^^^^
@@ -64,17 +43,23 @@ Generally a model is setup with the offshore boundary in the swash zone, good pr
 In SFINCS it is possible to distinguish cells that are made inactive in the computation so it will not slow your model down (in this case everywhere deeper than 2m water depth).
 In some cases local rainfall might be relevant too for a coastal model.
 
+.. figure:: ./figures/Figure_coastal_model.png
+   :width: 800px
+   :align: center
+
+   SFINCS model for Sao Tome en Principe, figure from: https://doi.org/10.5194/nhess-20-2397-2020
+   
    
 Coral reef model
 ^^^^^^^^^
 SFINCS models have also been setup in coral reef type environments, where individual waves are forced to compute wave-driven flooding.
 This generally has a large contribution to flooding for Small Island Developping States (SIDS) or other coasts/islands with coral reef type coasts.
 
-.. figure:: ./figures/Figure_urban_model.png
+.. figure:: ./figures/Figure_coralreef_model.png
    :width: 800px
    :align: center
 
-   SFINCS model for Sao Tome en Principe, figure from: https://doi.org/10.5194/nhess-20-2397-2020
+   SFINCS model for Majuro.
    
 Tsunami model
 ^^^^^^^^^
@@ -101,7 +86,7 @@ Generally at the upstream end of rivers, one can provide discharge points with d
 At the downstream end of rivers, water level time-series need to be specified, which in case of sub-critical flow conditions will influence the flow upstream.
 Additionaly, besides the general river discharge, local rainfall adding water to the river can be very relevant too.
 
-.. figure:: ./figures/Figure_urban_model.png
+.. figure:: ./figures/Figure_riverine_model.png
    :width: 800px
    :align: center
 
@@ -146,39 +131,72 @@ Hereby the joint effect of multiple flood drivers that can enhance flooding can 
    SFINCS model for Jacksonville, FL, during Hurricane Irma (2017), figure from: https://doi.org/10.1016/j.coastaleng.2020.103796
 
 
+
+Validation cases
+-----
+The model is validated in the recently published paper about SFINCS:
+
+"Modeling compound flooding in coastal systems using a computationally efficient reduced-physics solver: including fluvial, pluvial, tidal, wind- and wave-driven processes" - Leijnse et al. 2020 - 
+
+Performed tests here were:
+
+* Environmental Agency test 2: Filling of floodplain depressions
+
+* Environmental Agency test 5: River valley flooding
+
+* Dam-break test with an initial wet bed
+
+* Carrier and Greenspan (1958) wave runup
+
+* Compound flooding during Hurricane Irma at Jacksonville, Florida
+
+* Wave-driven flooding during Typhoon Haiyan at Hernani, the Philippines
+
+
+Currently, a hindcast of the flooding at Houston, Texas, during Hurricane Harvey as modelled by SFINCS is in review: 
+
+"Hindcast of Pluvial, Fluvial, and Coastal Flood Damage in Houston, Texas during Hurricane Harvey (2017) using SFINCS" Sebastian et al. 2020, in review
+
+Modelling tsunami driven flooding at Sendai, Japan, during the 2011 Tohoku tsunami: https://doi.org/10.3390/jmse9050453
+
+
 Applications where SFINCS was used
 -----
 
 Recently this paper is published using SFINCS to model flooding for SIDS: "Uncertainties in coastal flood risk assessments in small island developing states" - Parodi et al. 2020 https://nhess.copernicus.org/articles/20/2397/2020/
 
-Modelling tsunami driven flooding at Sendai, Japan, during the 2011 Tohoku tsunami: https://doi.org/10.3390/jmse9050453
-
-
 SFINCS has also been applied (or still is) in multiple international projects:
 
-Modelling compound flooding for the islands of São Tomé en Principe
+* Modelling compound flooding for the islands of São Tomé en Principe
 
-Modelling tropical cyclone and sea level rise driven flooding in polders of Bangladesh
+* Modelling tropical cyclone and sea level rise driven flooding in polders of Bangladesh
 
-Modelling compound flooding at Monrovia, Liberia
+* Modelling compound flooding at Monrovia, Liberia
 
-Modelling sea level rise and storm driven flooding at 18 countries in the Caribbean
+* Modelling sea level rise and storm driven flooding at 18 countries in the Caribbean
 
-Modelling multi-hazard driven flooding for the atoll of Majuro in the Marshall islands
+* Modelling multi-hazard driven flooding for the atoll of Majuro in the Marshall islands
 
-Modelling Sea Level Rise driven flooding at all the islands of the Marshall Islands
+* Modelling Sea Level Rise driven flooding at all the islands of the Marshall Islands
 
-Modelling compound flooding along the whole US Southeast coast
+* Modelling compound flooding along the whole US Southeast coast
 
-Modelling wave-driven flooding across the Puget Sound, US West coast
+* Modelling wave-driven flooding across the Puget Sound, US West coast
 
-Modelling wave-driven flooding at Miami, Florida
+* Modelling wave-driven flooding at Miami, Florida
 
-Modelling coastal driven flooding at Beira, Mozambique
+* Modelling coastal driven flooding at Beira, Mozambique
 
 
 Recent advancements in speed: subgrid features
 -----
+
+.. figure:: ./figures/Figure_subgrid_tables.png
+   :width: 800px
+   :align: center
+
+   Example subgrid features within one grid cell
+
 
 What are subgrid features?
 ^^^^^^^^^
@@ -190,14 +208,13 @@ Why subgrid features?
 Often model runtimes are too large to go to very fine resolution modelling because refining a grid size with a factor 2, leads to a 2^3 longer model runtime due to the time step limitation in the CFL-criteria. 
 This can be overcome by using a subgrid approach for the continuity update. This has the benefit that larger grid domains can be used while keeping accurate results.
 
-How does it work? (TO BE UPDATED)
+How does it work? 
 ^^^^^^^^^
-he method used in SFINCS is similar to that validated in Volp et al. (2016). 
-It is implemented so that subgrid tables are derived in pre-processing that contain relations between the water level and volume for every grid cell. 
+The subgrid method implemented so that subgrid tables are derived in pre-processing that contain relations between the water level and volume for every grid cell. 
 These tables are derived using high resolution topography and bathymetry data. 
 In the SFINCS model itself, these subgrid tables are used to determine an accurate estimation of the water level after calculating fluxes on a coarser grid resolution. 
+Additionally, for calculating the fluxes between cells, a representative water depth is determined.
 The makes is possible to compute on a coarser grid resolution (improvement of efficiency) while still detailed information about the local elevation is incorporated when determining corresponding water levels leading to accurate results.
-
 
 Increase in computational efficiency?
 ^^^^^^^^^
