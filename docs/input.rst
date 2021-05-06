@@ -11,7 +11,7 @@ Below an example is given of this file, which uses a keyword/value layout.
 For more information regarding specific parameters see the pages 'Input parameters' or 'Output parameters'.
 
 .. figure:: ./figures/SFINCS_documentation_figure1.png
-   :width: 400px
+   :width: 800px
    :align: center
 
    Overview of input file of SFINCS with indication whther they are required or not
@@ -113,7 +113,7 @@ Index file
 
 Additionally a index file is needed when supplying binary input files (inputformat = bin)
 
-**sfincs.ind**
+**indexfile = sfincs.ind**
 
 .. code-block:: text
 
@@ -179,7 +179,21 @@ When forcing waves, besides providing a bzsfile with slowly varying water level 
 This can contain infragravity and/or short waves.
 Do note that the forced signal should be the incoming wave component only, not including the reflecting one, since this is computed by SFINCS internally as well.
 The signal should be around 0.
+Do note that the input timestep should be the same in both the bzs and bzi files!
 
+**bzifile = sfincs.bzi**
+
+.. code-block:: text
+
+	<time 1> <zi1 bnd1> <zi1 bnd2>
+
+	<time 2> <zi2 bnd1> <zi2 bnd2>
+	
+	e.g.
+	0 	0.05	0.07
+	2 	-0.02	-0.04
+	4 	0.10	0.03
+	
 Discharge points
 %%%%%
 
