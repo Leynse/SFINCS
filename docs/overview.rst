@@ -22,7 +22,7 @@ Current modelling approaches are either fast but too simple (bathtub approach) o
 SFINCS balances a high computational efficiency with adequate accuracy.
 
 .. figure:: ./figures/Figure_speed.png
-   :width: 800px
+   :width: 300px
    :align: center
 
    The goal of SFINCS: speed! (Icon made by https://www.flaticon.com/authors/vectors-market)
@@ -44,7 +44,7 @@ In SFINCS it is possible to distinguish cells that are made inactive in the comp
 In some cases local rainfall might be relevant too for a coastal model.
 
 .. figure:: ./figures/Figure_coastal_model.png
-   :width: 800px
+   :width: 600px
    :align: center
 
    SFINCS model for Sao Tome en Principe, figure from: https://doi.org/10.5194/nhess-20-2397-2020
@@ -56,7 +56,7 @@ SFINCS models have also been setup in coral reef type environments, where indivi
 This generally has a large contribution to flooding for Small Island Developping States (SIDS) or other coasts/islands with coral reef type coasts.
 
 .. figure:: ./figures/Figure_coralreef_model.png
-   :width: 800px
+   :width: 600px
    :align: center
 
    SFINCS model for Majuro.
@@ -87,7 +87,7 @@ At the downstream end of rivers, water level time-series need to be specified, w
 Additionaly, besides the general river discharge, local rainfall adding water to the river can be very relevant too.
 
 .. figure:: ./figures/Figure_riverine_model.png
-   :width: 800px
+   :width: 600px
    :align: center
 
    SFINCS model for Vientiane, Laos.
@@ -101,7 +101,7 @@ To test out the effect of interventions, it is possible to insert different type
 These can be thin dams, levees, sea walls, simple drainage pumps or culverts.
 
 .. figure:: ./figures/Figure_urban_model.png
-   :width: 800px
+   :width: 600px
    :align: center
 
    SFINCS model for Houston, TX, during Hurricane Harvey (2017)
@@ -113,7 +113,7 @@ In these events, a short but intense rainfall event falls onto a domain and toge
 Get in touch to hear more about possibilities for fast flash-flood modelling with SFINCS.
 
 .. figure:: ./figures/Figure_flashflood_model.png
-   :width: 800px
+   :width: 600px
    :align: center
 
    SFINCS model for Izmir, Turkey
@@ -125,7 +125,7 @@ In a compound flooding model, all relevant types of forcing from either coastal,
 Hereby the joint effect of multiple flood drivers that can enhance flooding can be taken into account.
 
 .. figure:: ./figures/Figure_compound_model.png
-   :width: 800px
+   :width: 600px
    :align: center
 
    SFINCS model for Jacksonville, FL, during Hurricane Irma (2017), figure from: https://doi.org/10.1016/j.coastaleng.2020.103796
@@ -167,7 +167,7 @@ Recently this paper is published using SFINCS to model flooding for SIDS: "Uncer
 
 SFINCS has also been applied (or still is) in multiple international projects:
 
-* Modelling compound flooding for the islands of São Tomé en Principe
+* Modelling compound flooding for the islands of Sao Tome en Principe
 
 * Modelling tropical cyclone and sea level rise driven flooding in polders of Bangladesh
 
@@ -177,7 +177,7 @@ SFINCS has also been applied (or still is) in multiple international projects:
 
 * Modelling multi-hazard driven flooding for the atoll of Majuro in the Marshall islands
 
-* Modelling Sea Level Rise driven flooding at all the islands of the Marshall Islands
+* Modelling sea level rise driven flooding at all the islands of the Marshall Islands
 
 * Modelling compound flooding along the whole US Southeast coast
 
@@ -191,17 +191,16 @@ SFINCS has also been applied (or still is) in multiple international projects:
 Recent advancements in speed: subgrid features
 -----
 
-.. figure:: ./figures/Figure_subgrid_tables.png
-   :width: 800px
-   :align: center
-
-   Example subgrid features within one grid cell
-
-
 What are subgrid features?
 ^^^^^^^^^
 Subgrid features are a method in which flux computations are performed on a coarser grid than the update of the water levels which is done on a much finer resolution. 
 In this way computations can be sped up, while still using high resolution information of topography and bathymetry.
+
+.. figure:: ./figures/Figure_subgrid_tables.png
+   :width: 600px
+   :align: center
+
+   Example subgrid features within one grid cell
 
 Why subgrid features?
 ^^^^^^^^^
