@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# XBdiagnostic documentation build configuration file, created by
+# SFINCS documentation build configuration file, created by
 # sphinx-quickstart on  Tue Jun 13 09:56:18 2017.
 #
 # This file is execfile()d with the current directory set to its
@@ -215,7 +215,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'XBdiagnosticdoc'
+htmlhelp_basename = 'SFINCSdoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -237,7 +237,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'XBdiagnostic.tex', u'XBdiagnostic Documentation',
+  (master_doc, 'SFINCS.tex', u'SFINCS Documentation',
    u'Tim Leijnse', 'manual'),
 ]
 
@@ -267,7 +267,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'XBdiagnostic', u'XBdiagnostic Documentation',
+    (master_doc, 'SFINCS', u'SFINCS Documentation',
      [author], 1)
 ]
 
