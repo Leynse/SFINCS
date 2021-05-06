@@ -10,14 +10,14 @@ The figure below gives an overview of all different types of input files and whe
 Below an example is given of this file, which uses a keyword/value layout. 
 For more information regarding specific parameters see the pages 'Input parameters' or 'Output parameters'.
 
-.. figure:: ./figure/SFINCS_documentation_figure1.png
+.. figure:: ./figures/SFINCS_documentation_figure1.png
    :width: 400px
    :align: center
 
    Overview of input file of SFINCS with indication whther they are required or not
 
 
-**sfincs.inp**
+**Example of: sfincs.inp**
 
 .. code-block:: text
 
@@ -84,7 +84,9 @@ A bathymetry is defined in sfincs.dep based on the specified grid, positive is u
 
 	<zb x0,y1> <zb x1,y1>
 
-	
+	e.g.
+	2.0 	2.2
+	1.8	2.4
 
 Mask-file
 %%%%%
@@ -102,22 +104,30 @@ The file can be made with the OET script 'sfincs_make_mask.m', whereby default a
 
 	<msk (x0,y1)> <msk (x1,y1)>
 
-
+	e.g.
+	0 	1
+	2	2
+	
 Index file
 %%%%%
 
 Additionally a index file is needed when supplying binary input files (inputformat = bin)
 
-**keywords**
+**sfincs.ind**
 
 .. code-block:: text
 
-	indexfile       = sfincs.ind
+	<cell number 1> <cell number 2> <cell number 3>
+
+Subgrid table
+%%%%%
+
+Using subgrid features is an advanced option that is not supported yet in this documentation
 
 Input format 
 %%%%%
 
-The depth/mask/geomask/index-files can be binary or ASCII files. 
+The depth/mask/index-files can be binary or ASCII files. 
 For the former specify 'inputformat = bin' (default), for the latter specify 'inputformat = asc'.
 
 
@@ -143,6 +153,9 @@ For every boundary point there is interpolated with a weighted average between t
 	
 	<bnd2 x2> <bnd2 y2>  
 
+	e.g.
+	400000 	1200000
+	480000 	1250000
 
 Then in the file 'sfincs.bzs' the water level time-series are specified per input location.
 
@@ -153,7 +166,19 @@ Then in the file 'sfincs.bzs' the water level time-series are specified per inpu
 	<time 1> <zs1 bnd1> <zs1 bnd2>
 
 	<time 2> <zs2 bnd1> <zs2 bnd2>
+	
+	e.g.
+	0 	0.50	0.75
+	3600 	0.60	0.80
+	7200 	0.45	0.85
+	
+Waves
+%%%%%
 
+When forcing waves, besides providing a bzsfile with slowly varying water level time-series, also the same type of file with the quickly varying water level component due to waves can be prescribed.
+This can contain infragravity and/or short waves.
+Do note that the forced signal should be the incoming wave component only, not including the reflecting one, since this is computed by SFINCS internally as well.
+The signal should be around 0.
 
 Discharge points
 %%%%%
@@ -171,7 +196,9 @@ First specify the locations in 'sfincs.src'.
 	
 	<src2 x2> <src2 y2>  
 
-
+	e.g.
+	300000 	1500000
+	380000 	1650000
 
 Then in the file 'sfincs.dis' the discharge time-series are specified per input location.
 
@@ -183,7 +210,11 @@ Then in the file 'sfincs.dis' the discharge time-series are specified per input 
 
 	<time 2> <dis2 src1> <dis2 src2>
 
-
+	e.g.
+	0 	100	1000
+	3600 	300	1100
+	7200 	0	1300
+	
 Wind and rain
 %%%%%
 
@@ -231,7 +262,11 @@ amprfile = sfincs.ampr
 
 	<time 2> <vmag2> <vdir2>
 
-
+	e.g.
+	0 	5	120
+	3600 	15	180
+	7200 	10	165
+	
 **Spatially-uniform rain input:**
 
 
@@ -245,7 +280,11 @@ Rain input in mm/hr.
 
 	<time 2> <prcp1>
 
-
+	e.g.
+	0 	0
+	3600 	15
+	7200 	10
+	
 **Drag Coefficients:**
 
 The drag coefficients are varying with wind speed and implemented as in Delft3D. 
@@ -261,49 +300,112 @@ There is specified for how many points 'cd_nr' a velocity 'cd_wnd' and a drag co
 	cd_val = 0.0010 0.0025 0.0015 
 
 
-Waves
-%%%%%
-
-The input of waves as boundary conditions is still work in progress. Right now the following input files should not be used:
-
-.. code-block:: text
-
-	bwvfile = ''
-
-	bhsfile = ''
-
-	btpfile = ''
-
-	cstfile = ''
-
-A varying time-series can for now be forced using the previously mentioned water level input 'sfincs.bzs'.
-
-
 Friction
 ----------------------
 
-Friction is specified with a Manning roughness coefficient 'n' [s/m^{1/3}] and can be done spatially uniform or spatially varying.
-
+Friction is specified with a Manning roughness coefficient 'n' [s/m^{1/3}] and can be done spatially uniform, land/sea value based or spatially varying.
 
 Spatially uniform:
 %%%%%
 
 Specify the keyword:
 
-manning = 0.04 (default)
+.. code-block:: text
 
-Spatially varying:
+	manning = 0.04 (default)
+
+Land/sea value:
 %%%%%
 
-For spatially varying a reference level in meters 'rgh_lev_land' is used to distinguish land 'manning_land' (depth>rgh_lev_land) and sea 'manning_sea' (depth<rgh_lev_land) with different friction values.
+For spatially varying a reference level in meters 'rgh_lev_land' is used to distinguish land 'manning_land' (elevation > rgh_lev_land) and sea 'manning_sea' (elevation < rgh_lev_land) with different friction values.
 
 .. code-block:: text
 
 	rgh_lev_land = 0 (default) 
 
-	manning_land = -999 (default) 
+	manning_land = 0.04 
 
-	manning_Sea = -999 (default) 
+	manning_Sea = 0.02
+
+Spatially varying:
+%%%%%
+
+For spatially varying friction values per cell use the manningfile option, with the same grid based input as the depfile.
+
+**manningfile = sfincs.man**
+
+.. code-block:: text
+
+	<manning x0,y0> <manning x1,y0> 
+
+	<manning x0,y1> <manning x1,y1>
+
+	e.g.
+	0.02 	0.02
+	0.06	0.04
+	
+Infiltration
+----------------------
+
+Infiltration is specified with either constant in time values in mm/hr (both uniform and spatially varying), or using a Curve Number method (only spatially varying).
+
+Spatially uniform constant in time:
+%%%%%
+
+Specify the keyword:
+
+.. code-block:: text
+
+	qinf = 1.0
+	
+Spatially varying constant in time:
+%%%%%
+
+For spatially varying infiltration values per cell use the qinffile option, with the same grid based input as the depfile.
+
+**qinffile = sfincs.qinf**
+
+.. code-block:: text
+
+	<infiltrationrate x0,y0> <infiltrationrate x1,y0> 
+
+	<infiltrationrate x0,y1> <infiltrationrate x1,y1>
+
+	e.g.
+	1.0 	5.0
+	0.0	6.0
+
+Spatially varying Curve Number:
+%%%%%
+
+For spatially varying infiltration values per cell using the Curve Number method use the scsfile option, with the same grid based input as the depfile.
+
+**scsfile = sfincs.scs**
+
+.. code-block:: text
+
+	<curve_number_value x0,y0> <curve_number_value x1,y0> 
+
+	<curve_number_value x0,y1> <curve_number_value x1,y1>
+
+	e.g.
+	100 	50
+	45	60
+
+Structures
+----------------------
+
+Thin dam:
+%%%%%
+
+Weirs:
+%%%%%
+
+Drainage pump:
+%%%%%
+
+Culvert:
+%%%%%
 
 
 Time management
@@ -328,7 +430,6 @@ When using a spiderweb-file for the wind input, the values are updated every 'dt
 	dtmaxout 	= 86400
 	dthisout 	= 600
 	dtwnd 		= 1800
-
 
 Model output
 ----------------------
