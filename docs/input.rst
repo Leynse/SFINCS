@@ -1,4 +1,4 @@
-Input description
+User manual - general
 =======
 
 Overview
@@ -66,14 +66,21 @@ Grid & bathymetry
 ----------------------
 
 Grid
+%%%%%
+
 SFINCS uses a staggered equidistant recti-linear grid, grid sizes for x- a y-direction can be different. SFINCS can only be used in cartesian coordinates. 
 The grid is initialised by stating an origin location (x0, y0), a number of grid cells in x-&y-direction (mmax, nmax) and the grid sizes in x-&y-direction (dx,dy).
 If desired the grid can also be rotated using 'rotation', in degrees from the x-axis (east) in anti-clockwise direction.
 
+* TODO: add figure
 
-Depth-file
+Elevation
 %%%%%
-A bathymetry is defined in sfincs.dep based on the specified grid, positive is upwards with respect to a reference level (topography has positive values, bathymetry has negative values).
+To describe the local topography and bathymetry, elevation data has be supplied to the model.
+This can be of any multiple of sources, but it is advised that the transition zone between different datasets and between above/below water level are checked with care.
+The elevation is described in the cell centres of the grid.
+
+The elevation is defined in sfincs.dep based on the specified grid, positive is upwards with respect to a reference level (topography has positive values, bathymetry has negative values).
 
 
 **depfile = sfincs.dep**
@@ -88,10 +95,23 @@ A bathymetry is defined in sfincs.dep based on the specified grid, positive is u
 	2.0 	2.2
 	1.8	2.4
 
+Subgrid table
+%%%%%
+
+Currently the SFINCS model functionality is extended so that SFINCS can also calculated flooding with the use of subgrid tables.
+Hereby high-resolution elevation data is used to derive relations between the water level and the volume in a cell to do the continuity update, and a representative water depth used to calculate momentum fluxes.
+The derivation of these subgrid tables is a pre-processing step outside of the model, that only needs to be done once!
+The advantage of the subgrid version of SFINCS is that generally one can compute on coarsed grid sizes, while still having accurate results utilizing the high-resolution elevation data to its full potential.
+
+Using subgrid features is an advanced option that is not fully supported yet in this documentation.
+
 Mask-file
 %%%%%
 
-SFINCS uses a masker file to distinguish boundary (value=2)/active (value=1)/non-active (value=0) cells within the supplied grid.
+To distinguish active from inactive areas and cells where boundary conditions need to be forced, a mask file needs to be supplied.
+This mask indicates for every cell whether it is an inactive cell (msk=0), active cell (msk=1), boundary cell (msk=2) or outflow boundary cell msk=3).
+This allows great flexibility in optimising the model domain and thereby reducing the computational runtime as much as possible.
+
 If boundary water levels are supplied, these are only forced to the cells with a value of 2. 
 Cells with a value of 0 are inactive and no fluxes from/to these cells are calculated.
 The file can be made with the OET script 'sfincs_make_mask.m', whereby default a value of -2 m to MSL is used to distinguish the cells.
@@ -106,7 +126,7 @@ The file can be made with the OET script 'sfincs_make_mask.m', whereby default a
 
 	e.g.
 	0 	1
-	2	2
+	2	3
 	
 Index file
 %%%%%
@@ -119,203 +139,16 @@ Additionally a index file is needed when supplying binary input files (inputform
 
 	<cell number 1> <cell number 2> <cell number 3>
 
-Subgrid table
-%%%%%
-
-Using subgrid features is an advanced option that is not supported yet in this documentation
-
 Input format 
 %%%%%
 
 The depth/mask/index-files can be binary or ASCII files. 
 For the former specify 'inputformat = bin' (default), for the latter specify 'inputformat = asc'.
 
-
-External forcing
-----------------------
-
-Different types of external forcing can be supplied within SFINCS.
-Discussed are the water-level boundaries, discharge points, wind & rain and waves.
-
-
-Water-level boundaries
-%%%%%
-
-To specify water-level time-series to the boundary cells (msk=2), first the input locations have to be specified in 'sfincs.bnd'.
-For every boundary point there is interpolated with a weighted average between the two closest input locations.
-
-
-**bndfile - sfincs.bnd**
-
-.. code-block:: text
-
-	<bnd1 x1> <bnd1 y1>  
-	
-	<bnd2 x2> <bnd2 y2>  
-
-	e.g.
-	400000 	1200000
-	480000 	1250000
-
-Then in the file 'sfincs.bzs' the water level time-series are specified per input location.
-
-**bzsfile = sfincs.bzs**
-
-.. code-block:: text
-
-	<time 1> <zs1 bnd1> <zs1 bnd2>
-
-	<time 2> <zs2 bnd1> <zs2 bnd2>
-	
-	e.g.
-	0 	0.50	0.75
-	3600 	0.60	0.80
-	7200 	0.45	0.85
-	
-Waves
-%%%%%
-
-When forcing waves, besides providing a bzsfile with slowly varying water level time-series, also the same type of file with the quickly varying water level component due to waves can be prescribed.
-This can contain infragravity and/or short waves.
-Do note that the forced signal should be the incoming wave component only, not including the reflecting one, since this is computed by SFINCS internally as well.
-The signal should be around 0.
-Do note that the input timestep should be the same in both the bzs and bzi files!
-
-**bzifile = sfincs.bzi**
-
-.. code-block:: text
-
-	<time 1> <zi1 bnd1> <zi1 bnd2>
-
-	<time 2> <zi2 bnd1> <zi2 bnd2>
-	
-	e.g.
-	0 	0.05	0.07
-	2 	-0.02	-0.04
-	4 	0.10	0.03
-	
-Discharge points
-%%%%%
-
-A simple implementation of discharge points is added to SFINCS, specify values in m^3/s. 
-First specify the locations in 'sfincs.src'.
-
-
-**srcfile = sfincs.src**
-
-
-.. code-block:: text
-
-	<src1 x1> <src1 y1>  
-	
-	<src2 x2> <src2 y2>  
-
-	e.g.
-	300000 	1500000
-	380000 	1650000
-
-Then in the file 'sfincs.dis' the discharge time-series are specified per input location.
-
-**disfile = sfincs.dis**
-
-.. code-block:: text
-	
-	<time 1> <dis1 src1> <dis1 src2>
-
-	<time 2> <dis2 src1> <dis2 src2>
-
-	e.g.
-	0 	100	1000
-	3600 	300	1100
-	7200 	0	1300
-	
-Wind and rain
-%%%%%
-
-There are a few different options to specify wind and rain input: 
-
-1) Use a spatially varying spiderweb input (as in Delft3D) for only the wind input, or for the wind as well as the rain input. 
-
-2) Use a spatially varying grid input (as in Delft3D) for u- and v-velocities and/or the rain input. 
-
-3) Use a spatially uniform input for wind and rain, which is faster but also more simplified.
-
-4) Make a combination, for instance use a spiderweb for the wind input and a spatially uniform rain-input. When combining, test whether the forcing is as wanted since not all combinations might be possible.
-
-
-
-
-**Spiderweb-input:**
-
-spwfile = sfincs.spw
-
-
-**Delft3D-meteo input:**
-
-Wind:
-
-amufile = sfincs.amu
-
-amvfile = sfincs.amv
-
-Rain:
-
-amprfile = sfincs.ampr
-
-
-**Spatially-uniform wind input:**
-
-'vmag' is the wind speed in m/s, 'vdir' is the wind direction in nautical from where the wind is coming. The input format is the same as with Delft3D.
-
-
-**wndfile = sfincs.wnd**
-
-.. code-block:: text
-
-	<time 1> <vmag1> <vdir1>
-
-	<time 2> <vmag2> <vdir2>
-
-	e.g.
-	0 	5	120
-	3600 	15	180
-	7200 	10	165
-	
-**Spatially-uniform rain input:**
-
-
-Rain input in mm/hr.
-
-**precipfile = sfincs.prcp**
-
-.. code-block:: text
-
-	<time 1> <prcp0>
-
-	<time 2> <prcp1>
-
-	e.g.
-	0 	0
-	3600 	15
-	7200 	10
-	
-**Drag Coefficients:**
-
-The drag coefficients are varying with wind speed and implemented as in Delft3D. 
-The default values are based on Vatvani et al. (2012). 
-There is specified for how many points 'cd_nr' a velocity 'cd_wnd' and a drag coefficient 'cd_val' is specified, the following are the default values:
-
-.. code-block:: text
-
-	cd_nr = 3 
-
-	cd_wnd = 0 28 50 
-
-	cd_val = 0.0010 0.0025 0.0015 
-
-
 Friction
 ----------------------
+
+Different roughness values can great impact modelled flooding and thereby SFINCS allows the specification of a uniform value, differentiating land and sea with 2 different values or specifying a specific value per grid cell.
 
 Friction is specified with a Manning roughness coefficient 'n' [s/m^{1/3}] and can be done spatially uniform, land/sea value based or spatially varying.
 
@@ -344,7 +177,7 @@ For spatially varying a reference level in meters 'rgh_lev_land' is used to dist
 Spatially varying:
 %%%%%
 
-For spatially varying friction values per cell use the manningfile option, with the same grid based input as the depfile.
+For spatially varying friction values per cell use the manningfile option, with the same grid based input as the depfile using a binary file.
 
 **manningfile = sfincs.man**
 
@@ -361,6 +194,10 @@ For spatially varying friction values per cell use the manningfile option, with 
 Infiltration
 ----------------------
 
+Infiltration can significantly alter the amount of flooding when including precipitation.
+SFINCS allows the specification of a uniform constant value, spatially varying constant value or the Curve Number method.
+The Curve Number is a generally used method to determine what parts of falling rainfall can infiltrate or will run-off, hereby a limited time component is taken into account as well.
+
 Infiltration is specified with either constant in time values in mm/hr (both uniform and spatially varying), or using a Curve Number method (only spatially varying).
 
 Spatially uniform constant in time:
@@ -375,7 +212,7 @@ Specify the keyword:
 Spatially varying constant in time:
 %%%%%
 
-For spatially varying infiltration values per cell use the qinffile option, with the same grid based input as the depfile.
+For spatially varying infiltration values per cell use the qinffile option, with the same grid based input as the depfile using a binary file.
 
 **qinffile = sfincs.qinf**
 
@@ -392,7 +229,7 @@ For spatially varying infiltration values per cell use the qinffile option, with
 Spatially varying Curve Number:
 %%%%%
 
-For spatially varying infiltration values per cell using the Curve Number method use the scsfile option, with the same grid based input as the depfile.
+For spatially varying infiltration values per cell using the Curve Number method use the scsfile option, with the same grid based input as the depfile using a binary file.
 
 **scsfile = sfincs.scs**
 
@@ -406,21 +243,29 @@ For spatially varying infiltration values per cell using the Curve Number method
 	100 	50
 	45	60
 
-Structures
+Initial water level
 ----------------------
+The water level is by default initiated at 0 meters above mean water level, but can be changed.
+In the initialisation phase within the model, all cells with an elevation below specified user value are given the specified value of 'zsini', thereby starting without a completely dry bed.
+For more flexibility, this can also be prescribed spatially varying which can be relevant for coastal, riverine and tsunami cases.
+This 'zsinifile' is so far only supported using a ascii file.
 
-Thin dam:
-%%%%%
+** zsini **
+.. code-block:: text
 
-Weirs:
-%%%%%
+	zsini = 1.0
+	
+**zsinifile = sfincs.ini**
 
-Drainage pump:
-%%%%%
+.. code-block:: text
 
-Culvert:
-%%%%%
+	<zsini_value x0,y0> <zsini_value x1,y0> 
 
+	<zsini_value x0,y1> <zsini_value x1,y1>
+
+	e.g.
+	1.0 	1.2
+	0.0	0.0
 
 Time management
 ----------------------

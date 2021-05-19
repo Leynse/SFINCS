@@ -8,8 +8,10 @@ Welcome to SFINCS's documentation!
 
 'SFINCS' is the reduced-complexity model designed for super-fast modelling of compound flooding events in a dynamic way!
 
-Bullet lists:
-
+.. figure:: ./figures/Figure_coastal_model.png
+   :width: 600px
+   :align: center
+   
 * For an introduction of the model see the journal publication: https://doi.org/10.1016/j.coastaleng.2020.103796
 
 * For a second application in tsunami modelling see the journal publication: https://doi.org/10.3390/jmse9050453
@@ -27,6 +29,8 @@ The SFINCS executable is not yet shared open source, but will be in the future, 
    
    overview
    input
+   input_forcing
+   input_structures
    parameters
    output
    example
