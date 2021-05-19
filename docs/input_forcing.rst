@@ -10,13 +10,13 @@ The figure below gives an overview of all different types of input files and whe
 Below an example is given of this file, which uses a keyword/value layout. 
 For more information regarding specific parameters see the pages 'Input parameters' or 'Output parameters'.
 
-.. figure:: ./figures/SFINCS_documentation_figure1.png
+.. figure:: ./figures/SFINCS_documentation_forcing.png
    :width: 800px
    :align: center
 
    Overview of input file of SFINCS with indication whther they are required or not
 
-External forcing
+Forcing
 ----------------------
 SFINCS has different functionalities regarding different relevant physical processes for compound flooding and what type of model is required. 
 At first nearshore/offshore water levels can be specified at the different locations along the coast to include tides and storm surge levels. 
@@ -24,10 +24,10 @@ Inland drivers of flooding like precipitation and wind can be specified in a num
 This varies from simple spatially uniform time-series to spatially varying spiderwebs or grid input types.  
 Furthermore, simple implementations for discharges are included.
 
-Discussed in this user manual are the water-level boundaries, discharge points, wind & rain and waves.
+Discussed in this user manual are the water-level boundaries, discharge points, wind, pressure, rain and waves.
 
 Water-level boundaries
-%%%%%
+^^^^^^^^^
 
 To specify water-level time-series to the boundary cells (msk=2), first the input locations have to be specified in 'sfincs.bnd'.
 For every boundary point there is interpolated with a weighted average between the two closest input locations.
@@ -61,7 +61,7 @@ Then in the file 'sfincs.bzs' the water level time-series are specified per inpu
 	7200 	0.45	0.85
 	
 Waves
-%%%%%
+^^^^^^^^^
 
 When forcing waves, besides providing a bzsfile with slowly varying water level time-series, also the same type of file with the quickly varying water level component due to waves can be prescribed.
 This can contain infragravity and/or short waves.
@@ -82,8 +82,11 @@ Do note that the input timestep should be the same in both the bzs and bzi files
 	2 	-0.02	-0.04
 	4 	0.10	0.03
 	
+Discharges
+---------
+
 Discharge points
-%%%%%
+^^^^^^^^^
 
 A simple implementation of discharge points is added to SFINCS, specify values in m^3/s. 
 First specify the locations in 'sfincs.src'.
@@ -102,6 +105,9 @@ First specify the locations in 'sfincs.src'.
 	300000 	1500000
 	380000 	1650000
 
+Discharge time-series
+^^^^^^^^^
+
 Then in the file 'sfincs.dis' the discharge time-series are specified per input location.
 
 **disfile = sfincs.dis**
@@ -117,8 +123,8 @@ Then in the file 'sfincs.dis' the discharge time-series are specified per input 
 	3600 	300	1100
 	7200 	0	1300
 	
-Wind and rain
-%%%%%
+Meteo
+^^^^^^^^^
 
 There are a few different options to specify wind and rain input: 
 
@@ -131,7 +137,7 @@ There are a few different options to specify wind and rain input:
 4) Make a combination, for instance use a spiderweb for the wind input and a spatially uniform rain-input. When combining, test whether the forcing is as wanted since not all combinations might be possible.
 
 
-* TODO: describe netamuamvfile, netamprfile and netbndbzsbzifile
+* TODO: describe netamuamvfile, netamprfile and netbndbzsbzifile and pressure optoins
 
 **Spiderweb-input:**
 
@@ -150,7 +156,30 @@ Rain:
 
 amprfile = sfincs.ampr
 
+These files have this general header of 13 lines which SFINCS expects, after which the TIME and data blocks are given per time frame:
 
+.. code-block:: text
+
+	FileVersion      = 1.03
+	filetype         = meteo_on_equidistant_grid
+	n_cols           = 2
+	n_rows           = 4
+	grid_unit        = m
+	x_llcorner       = 417328
+	y_llcorner       = 3495537
+	dx               = 5000
+	dy               = 5000
+	n_quantity       = 1
+	quantity1        = x_wind
+	unit1            = m s-1
+	NODATA_value     = -999
+	TIME = 90831.0 hours since 1970-01-01 00:00:00 +00:00  # 1980-05-12 15:00:00
+ 	0 0 0 0 
+	0 0 0 0
+	TIME = 90831.0 hours since 1970-01-01 00:00:00 +00:00  # 1980-05-12 15:00:00
+ 	0 0 0 0 
+	0 0 0 0
+	
 **Spatially-uniform wind input:**
 
 'vmag' is the wind speed in m/s, 'vdir' is the wind direction in nautical from where the wind is coming. The input format is the same as with Delft3D.

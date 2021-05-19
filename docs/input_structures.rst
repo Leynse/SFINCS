@@ -10,7 +10,7 @@ The figure below gives an overview of all different types of input files and whe
 Below an example is given of this file, which uses a keyword/value layout. 
 For more information regarding specific parameters see the pages 'Input parameters' or 'Output parameters'.
 
-.. figure:: ./figures/SFINCS_documentation_figure1.png
+.. figure:: ./figures/SFINCS_documentation_structures.png
    :width: 800px
    :align: center
 
@@ -20,15 +20,19 @@ Structures
 ----------------------
 
 Thin dam:
-%%%%%
+^^^^^^^^^
+
 
 Weirs:
-%%%%%
+^^^^^^^^^
+
 
 Drainage pump:
-%%%%%
+^^^^^^^^^
+
 
 Culvert:
-%%%%%
+^^^^^^^^^
+
 
 

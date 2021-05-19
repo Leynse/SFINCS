@@ -16,8 +16,8 @@ For more information regarding specific parameters see the pages 'Input paramete
 
    Overview of input file of SFINCS with indication whther they are required or not
 
-
-**Example of: sfincs.inp**
+Example of: sfincs.inp
+----------------------
 
 .. code-block:: text
 
@@ -29,6 +29,10 @@ For more information regarding specific parameters see the pages 'Input paramete
 	dy              = 100
 	rotation        = 0
 	
+	tref            = 20180000 000000
+	tstart          = 20180000 000000
+	tstop           = 20180001 000000
+	
 	depfile         = sfincs.dep
 	mskfile         = sfincs.msk
 	indexfile       = sfincs.ind
@@ -36,7 +40,8 @@ For more information regarding specific parameters see the pages 'Input paramete
 	bndfile         = sfincs.bnd
 	bzsfile         = sfincs.bzs
 	spwfile         = sfincs.spw
-	amprfile        = sfincs.ampr
+	srcfile         = sfincs.src
+	disfile         = sfincs.dis
 
 	advection	= 0
 	alpha           = 0.75
@@ -45,28 +50,24 @@ For more information regarding specific parameters see the pages 'Input paramete
 	theta 		= 0.9
 	qinf            = 0.0
 
-	tref            = 20180000 000000
-	tstart          = 20180000 000000
-	tstop           = 20180001 000000
-	
 	dtout           = 3600
 	dtmaxout        = 86400	
 	dthisout        = 600
 
 	inputformat     = bin
-	outputformat    = net
+	outputformat    = net	
 	
-	zsfile          = zs.dat
-	hmaxfile        = hmax.dat
+	obsfile         = sfincs.obs 	
 	
-	obsfile         = sfincs.obs
-	
+Domain
+----------------------	
 
-Grid & bathymetry
-----------------------
-
-Grid
-%%%%%
+.. figure:: ./figures/SFINCS_documentation_domain.png
+   :width: 800px
+   :align: center
+   
+Grid characteristics
+^^^^^^^^^
 
 SFINCS uses a staggered equidistant recti-linear grid, grid sizes for x- a y-direction can be different. SFINCS can only be used in cartesian coordinates. 
 The grid is initialised by stating an origin location (x0, y0), a number of grid cells in x-&y-direction (mmax, nmax) and the grid sizes in x-&y-direction (dx,dy).
@@ -75,7 +76,8 @@ If desired the grid can also be rotated using 'rotation', in degrees from the x-
 * TODO: add figure
 
 Elevation
-%%%%%
+^^^^^^^^^
+
 To describe the local topography and bathymetry, elevation data has be supplied to the model.
 This can be of any multiple of sources, but it is advised that the transition zone between different datasets and between above/below water level are checked with care.
 The elevation is described in the cell centres of the grid.
@@ -95,8 +97,8 @@ The elevation is defined in sfincs.dep based on the specified grid, positive is 
 	2.0 	2.2
 	1.8	2.4
 
-Subgrid table
-%%%%%
+Subgrid tables
+^^^^^^^^^
 
 Currently the SFINCS model functionality is extended so that SFINCS can also calculated flooding with the use of subgrid tables.
 Hereby high-resolution elevation data is used to derive relations between the water level and the volume in a cell to do the continuity update, and a representative water depth used to calculate momentum fluxes.
@@ -106,7 +108,7 @@ The advantage of the subgrid version of SFINCS is that generally one can compute
 Using subgrid features is an advanced option that is not fully supported yet in this documentation.
 
 Mask-file
-%%%%%
+^^^^^^^^^
 
 To distinguish active from inactive areas and cells where boundary conditions need to be forced, a mask file needs to be supplied.
 This mask indicates for every cell whether it is an inactive cell (msk=0), active cell (msk=1), boundary cell (msk=2) or outflow boundary cell msk=3).
@@ -129,7 +131,7 @@ The file can be made with the OET script 'sfincs_make_mask.m', whereby default a
 	2	3
 	
 Index file
-%%%%%
+^^^^^^^^^
 
 Additionally a index file is needed when supplying binary input files (inputformat = bin)
 
@@ -139,14 +141,9 @@ Additionally a index file is needed when supplying binary input files (inputform
 
 	<cell number 1> <cell number 2> <cell number 3>
 
-Input format 
-%%%%%
-
-The depth/mask/index-files can be binary or ASCII files. 
-For the former specify 'inputformat = bin' (default), for the latter specify 'inputformat = asc'.
 
 Friction
-----------------------
+^^^^^^^^^
 
 Different roughness values can great impact modelled flooding and thereby SFINCS allows the specification of a uniform value, differentiating land and sea with 2 different values or specifying a specific value per grid cell.
 
@@ -192,7 +189,7 @@ For spatially varying friction values per cell use the manningfile option, with 
 	0.06	0.04
 	
 Infiltration
-----------------------
+^^^^^^^^^
 
 Infiltration can significantly alter the amount of flooding when including precipitation.
 SFINCS allows the specification of a uniform constant value, spatially varying constant value or the Curve Number method.
@@ -243,75 +240,8 @@ For spatially varying infiltration values per cell using the Curve Number method
 	100 	50
 	45	60
 
-Initial water level
-----------------------
-The water level is by default initiated at 0 meters above mean water level, but can be changed.
-In the initialisation phase within the model, all cells with an elevation below specified user value are given the specified value of 'zsini', thereby starting without a completely dry bed.
-For more flexibility, this can also be prescribed spatially varying which can be relevant for coastal, riverine and tsunami cases.
-This 'zsinifile' is so far only supported using a ascii file.
-
-** zsini **
-.. code-block:: text
-
-	zsini = 1.0
-	
-**zsinifile = sfincs.ini**
-
-.. code-block:: text
-
-	<zsini_value x0,y0> <zsini_value x1,y0> 
-
-	<zsini_value x0,y1> <zsini_value x1,y1>
-
-	e.g.
-	1.0 	1.2
-	0.0	0.0
-
-Time management
-----------------------
-The required model runtime can be specified by setting a reference date (tref), start date (tstart) and stop date (tstop). 
-The format is 'yyyymmdd HHMMSS', see below:
-
-.. code-block:: text
-
-	tref 	= yyyymmdd HHMMSS
-	tstart 	= yyyymmdd HHMMSS
-	tstop 	= yyyymmdd HHMMSS
-
-Also the output date inverval can be controlled.
-For the map output there is data output every 'dtout' seconds, for optional observation points this is 'dthisout' seconds.
-It also possible to get the maximum output data over a specific interval (e.g. every day), specify using 'dtmaxout' in seconds.
-When using a spiderweb-file for the wind input, the values are updated every 'dtwnd' seconds.
-
-.. code-block:: text
-
-	dtout 		= 3600
-	dtmaxout 	= 86400
-	dthisout 	= 600
-	dtwnd 		= 1800
-
-Model output
-----------------------
-
-Output format
-%%%%%
-
-The main map output can be netcdf, binary or ASCII files. 
-For the former specify 'outputformat = net' (default), for the others specify 'outputformat = bin' or 'outputformat = asc'.
-
-Output files
-%%%%%
-
-In case of netcdf output the map output will be named 'sfincs_map.nc', in case observation points are provided also a second file will be created with observation point output named 'sfincs_his.nc'.
-For binary or ascii files the output will be written to separate files, of which the named can be changed:
-
-.. code-block:: text
-	hmaxfile 	= hmax.dat
-	zsfile 		= zs.dat
-	vmaxfile 	= vmax.dat
-
 Observation points
-%%%%%
+^^^^^^^^^
 
 Observation points with water depth and water level output can be specified.
 Per observation point as minimal the x-and y- coordinates are stated, an standard name will then be added per point.
@@ -325,3 +255,99 @@ Also, names of a station can be provided with quotes '' (maximum of 256 characte
 	
 	<obs2 x2> <obs2 y2>  <obs2 'name2'>
 
+	e.g.:
+	592727.98 2969420.51 'NOAA_8722548_PGABoulevardBridge,PalmBeach'
+	594279.00 2961312.47 'NOAA_8722588_PortofWestPalmBeach'
+ 	595006.75 2944069.38 'NOAA_8722669_LakeWorthICW'
+ 	
+Initial water level
+^^^^^^^^^
+The water level is by default initiated at 0 meters above mean water level, but can be changed.
+In the initialisation phase within the model, all cells with an elevation below specified user value are given the specified value of 'zsini', thereby starting without a completely dry bed.
+For more flexibility, this can also be prescribed spatially varying which can be relevant for coastal, riverine and tsunami cases.
+This 'inifile' is so far only supported using a ascii file.
+
+** zsini **
+
+.. code-block:: text
+
+	zsini = 1.0
+	
+**inifile = sfincs.ini**
+
+.. code-block:: text
+
+	<zsini_value x0,y0> <zsini_value x1,y0> 
+
+	<zsini_value x0,y1> <zsini_value x1,y1>
+
+	e.g.
+	1.0 	1.2
+	0.0	0.0
+
+Model settings
+----------------------
+
+.. figure:: ./figures/SFINCS_documentation_modelsettings.png
+   :width: 800px
+   :align: center
+   
+Time management
+^^^^^^^^^
+
+The required model runtime can be specified by setting a reference date (tref), start date (tstart) and stop date (tstop). 
+The format is 'yyyymmdd HHMMSS', see below:
+
+.. code-block:: text
+
+	tref 	= yyyymmdd HHMMSS
+	tstart 	= yyyymmdd HHMMSS
+	tstop 	= yyyymmdd HHMMSS
+	
+	e.g.
+	tref            = 20180000 000000
+	tstart          = 20180000 000000
+	tstop           = 20180001 000000	
+
+Also the output date interval can be controlled.
+For the map output there is data output every 'dtout' seconds, for optional observation points this is 'dthisout' seconds.
+It also possible to get the maximum output data over a specific interval (e.g. every day), specify using 'dtmaxout' in seconds.
+When using a spiderweb-file for the wind input, the values are updated every 'dtwnd' seconds.
+
+.. code-block:: text
+
+	dtout 		= 3600
+	dtmaxout 	= 86400
+	dthisout 	= 600
+	dtwnd 		= 1800
+
+Input format 
+^^^^^^^^^
+
+The depth/mask/index-files can be binary or ASCII files. 
+For the former specify 'inputformat = bin' (default), for the latter specify 'inputformat = asc'.
+
+Output format
+^^^^^^^^^
+
+The main map output can be netcdf, binary or ASCII files. 
+For the former specify 'outputformat = net' (default), for the others specify 'outputformat = bin' or 'outputformat = asc'.
+
+Output files
+^^^^^^^^^
+
+In case of netcdf output the map output will be named 'sfincs_map.nc', in case observation points are provided also a second file will be created with observation point output named 'sfincs_his.nc'.
+For binary or ascii files the output will be written to separate files, of which the named can be changed:
+
+.. code-block:: text
+
+	hmaxfile 	= hmax.dat
+	zsfile 		= zs.dat
+	vmaxfile 	= vmax.dat
+
+Numerical parameters
+^^^^^^^^^
+* TODO: describe alpha, theta etc
+
+
+ 	
