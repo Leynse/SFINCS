@@ -35,7 +35,7 @@ The grid is initialised by stating an origin location of the cell edges (x0, y0)
 If desired the grid can also be rotated using 'rotation', in degrees from the x-axis (east) in anti-clockwise direction.
 
 .. figure:: ./figures/SFINCS_grid.png
-   :width: 800px
+   :width: 400px
    :align: center
    
 .. code-block:: text

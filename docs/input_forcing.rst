@@ -17,7 +17,7 @@ For more information regarding specific parameters see the pages 'Input paramete
    Overview of input file of SFINCS with indication whther they are required or not
 
 Forcing
-----------------------
+^^^^^^^^^
 SFINCS has different functionalities regarding different relevant physical processes for compound flooding and what type of model is required. 
 At first nearshore/offshore water levels can be specified at the different locations along the coast to include tides and storm surge levels. 
 Inland drivers of flooding like precipitation and wind can be specified in a number of ways.  
@@ -27,7 +27,7 @@ Furthermore, simple implementations for discharges are included.
 Discussed in this user manual are the water-level boundaries, discharge points, wind, pressure, rain and waves.
 
 Water-level boundaries
-^^^^^^^^^
+----------------------
 
 To specify water-level time-series to the boundary cells (msk=2), first the input locations have to be specified in 'sfincs.bnd'.
 For every boundary point there is interpolated with a weighted average between the two closest input locations.
@@ -61,7 +61,7 @@ Then in the file 'sfincs.bzs' the water level time-series are specified per inpu
 	7200 	0.45	0.85
 	
 Waves
-^^^^^^^^^
+----------------------
 
 When forcing waves, besides providing a bzsfile with slowly varying water level time-series, also the same type of file with the quickly varying water level component due to waves can be prescribed.
 This can contain infragravity and/or short waves.
@@ -124,7 +124,7 @@ Then in the file 'sfincs.dis' the discharge time-series are specified per input 
 	7200 	0	1300
 	
 Meteo
-^^^^^^^^^
+---------
 
 There are a few different options to specify wind and rain input: 
 
