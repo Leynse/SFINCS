@@ -26,7 +26,7 @@ Furthermore, simple implementations for discharges are included.
 
 Discussed in this user manual are the water-level boundaries, discharge points, wind, pressure, rain and waves.
 
-Water-level boundaries
+Water levels
 ----------------------
 
 To specify water-level time-series to the boundary cells (msk=2), first the input locations have to be specified in 'sfincs.bnd'.

@@ -34,13 +34,13 @@ SFINCS uses a staggered equidistant recti-linear grid, grid sizes for x- a y-dir
 The grid is initialised by stating an origin location of the cell edges (x0, y0), a number of grid cells in x-&y-direction (mmax, nmax) and the grid sizes in x-&y-direction (dx,dy).
 If desired the grid can also be rotated using 'rotation', in degrees from the x-axis (east) in anti-clockwise direction.
 
-.. figure:: ./figures/SFINCS_grid.png
+.. figure:: ./figures/SFINCS_grid_new.png
    :width: 400px
    :align: center
    
 .. code-block:: text
 	
-	e.g.:
+	e.g. in sfincs.inp:
 	
 	x0              = 0
 	y0              = 0	
