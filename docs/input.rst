@@ -14,53 +14,14 @@ For more information regarding specific parameters see the pages 'Input paramete
    :width: 800px
    :align: center
 
-   Overview of input file of SFINCS with indication whther they are required or not
-
-Example of: sfincs.inp
-----------------------
-
-.. code-block:: text
-
-	x0              = 0
-	y0              = 0	
-	mmax            = 100
-	nmax            = 100
-	dx              = 100
-	dy              = 100
-	rotation        = 0
-	
-	tref            = 20180000 000000
-	tstart          = 20180000 000000
-	tstop           = 20180001 000000
-	
-	depfile         = sfincs.dep
-	mskfile         = sfincs.msk
-	indexfile       = sfincs.ind
-
-	bndfile         = sfincs.bnd
-	bzsfile         = sfincs.bzs
-	spwfile         = sfincs.spw
-	srcfile         = sfincs.src
-	disfile         = sfincs.dis
-
-	advection	= 0
-	alpha           = 0.75
-	huthresh	= 0.05
-	manning         = 0.04	
-	theta 		= 0.9
-	qinf            = 0.0
-
-	dtout           = 3600
-	dtmaxout        = 86400	
-	dthisout        = 600
-
-	inputformat     = bin
-	outputformat    = net	
-	
-	obsfile         = sfincs.obs 	
+   Overview of input file of SFINCS with indication whther they are required or not	
 	
 Domain
 ----------------------	
+
+To set up a SFINCS model a number of parameters and files need to be specified to define the domain of the location where a model is being set up for, see the figure below.
+This consists of parameters of the grid characteristics in the main sfincs.inp-file and multiple separate input files.
+Some of these are required (elevation, active cells, indexfile in case of binary files) and others are optional (roughness, infiltration, subgrid tables, observation points).
 
 .. figure:: ./figures/SFINCS_documentation_domain.png
    :width: 800px
@@ -69,12 +30,26 @@ Domain
 Grid characteristics
 ^^^^^^^^^
 
-SFINCS uses a staggered equidistant recti-linear grid, grid sizes for x- a y-direction can be different. SFINCS can only be used in cartesian coordinates. 
-The grid is initialised by stating an origin location (x0, y0), a number of grid cells in x-&y-direction (mmax, nmax) and the grid sizes in x-&y-direction (dx,dy).
+SFINCS uses a staggered equidistant recti-linear grid, grid sizes for x- a y-direction can be different. SFINCS can only be used in cartesian coordinates (e.g. UTM zone). 
+The grid is initialised by stating an origin location of the cell edges (x0, y0), a number of grid cells in x-&y-direction (mmax, nmax) and the grid sizes in x-&y-direction (dx,dy).
 If desired the grid can also be rotated using 'rotation', in degrees from the x-axis (east) in anti-clockwise direction.
 
-* TODO: add figure
-
+.. figure:: ./figures/SFINCS_grid.png
+   :width: 800px
+   :align: center
+   
+.. code-block:: text
+	
+	e.g.:
+	
+	x0              = 0
+	y0              = 0	
+	mmax            = 250
+	nmax            = 150
+	dx              = 100
+	dy              = 100
+	rotation        = 45
+	
 Elevation
 ^^^^^^^^^
 
@@ -349,5 +324,45 @@ Numerical parameters
 ^^^^^^^^^
 * TODO: describe alpha, theta etc
 
+Example of sfincs.inp
+----------------------
 
- 	
+.. code-block:: text
+
+	x0              = 0
+	y0              = 0	
+	mmax            = 100
+	nmax            = 100
+	dx              = 100
+	dy              = 100
+	rotation        = 0
+	
+	tref            = 20180000 000000
+	tstart          = 20180000 000000
+	tstop           = 20180001 000000
+	
+	depfile         = sfincs.dep
+	mskfile         = sfincs.msk
+	indexfile       = sfincs.ind
+
+	bndfile         = sfincs.bnd
+	bzsfile         = sfincs.bzs
+	spwfile         = sfincs.spw
+	srcfile         = sfincs.src
+	disfile         = sfincs.dis
+
+	advection	= 0
+	alpha           = 0.75
+	huthresh	= 0.05
+	manning         = 0.04	
+	theta 		= 0.9
+	qinf            = 0.0
+
+	dtout           = 3600
+	dtmaxout        = 86400	
+	dthisout        = 600
+
+	inputformat     = bin
+	outputformat    = net	
+	
+	obsfile         = sfincs.obs  	
