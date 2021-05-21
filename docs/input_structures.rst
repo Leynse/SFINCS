@@ -19,20 +19,156 @@ For more information regarding specific parameters see the pages 'Input paramete
 Structures
 ----------------------
 
+SFINCS consists of multiple options for adding structures that can divert or block flow of water, which can be used to simulate flood hazard reduction methods.
+
 Thin dam:
 ^^^^^^^^^
 
+With a thin dam flow through certain grid cells is completely blocked (i.e. an infinitely high wall).
+One can provide multiple polylines within one file, a maximum of 5000 supplied points is supported.
+The supplied polylines are snapped onto the SFINCS grid within the model.
+
+**thdfile = sfincs.thd**
+
+.. code-block:: text
+
+	NAME1 
+	2 2 %size data
+	<x0> <y0> %start of polyline 1
+	<xend> <yend> %end of polyline 1
+	
+	NAME2 
+	2 2 %size data
+	<x0> <y0> %start of polyline 2
+	<xend> <yend>  %end of polyline 1
+	
+	e.g.
+	
+	THD01
+	3 2
+	0 100
+	10 100
+	20 100
+	THD02
+	2 2
+	20 200
+	25 200	
+	
+**Matlab example using OET**
+
+.. code-block:: text
+
+	inp.thdfile = 'sfincs.thd';
+	
+	thindams.x1 = [0 10 20]; 
+	thindams.y1 = [100 100 100]; 
+	thindams.x2 = [20 25]; 
+	thindams.y2 = [200 200]; 
+	thindams.name = {'THD01','THD02'};
+	thindams.length = length(thindams.x1);
+	
+	sfincs_write_thin_dams(inp.thdfile,thindams);
 
 Weirs:
 ^^^^^^^^^
 
+Weirs are in principle the same as a thin dam, but then with a certain height (levee).
+When the water level on either or both sides of the weir are higher than that of the weir, a flux over the weir is calculated.
+Hereby a situation where the weir is partly or fully submerged is distinguished.
+One can provide multiple polylines within one file, a maximum of 5000 supplied points is supported.
+Besides the x&y locations per points, also the elevation z and a Cd coefficient for the weir formula (recommended to use 0.6).
+The supplied polylines are snapped onto the SFINCS grid within the model.
 
-Drainage pump:
+**thdfile = sfincs.thd**
+
+.. code-block:: text
+
+	NAME1 
+	2 4 %size data
+	<x0> <y0> <z0> <cd1> %start of polyline 1
+	<x2> <y2> <z2> <cd2> %end of polyline 1
+	
+	NAME2 
+	2 4 %size data
+	<x0> <y0> <z0> <cd1> %start of polyline 2
+	<x2> <y2> <z2> <cd2> %end of polyline 2
+	
+	e.g.
+	
+	WEIR01
+	3 4
+	0 100 5.1 0.6
+	10 100 5.2 0.6
+	20 100 5.0 0.6
+	WEIR02
+	2 4
+	20 200 5.1 0.6
+	25 200 5.1 0.6	
+	
+**Matlab example using OET**
+
+.. code-block:: text
+
+	STILL CHECK 
+	
+	inp.weirfile = 'sfincs.weir';
+	
+	weirs.x1 = [0 10 20]; 
+	weirs.y1 = [100 100 100]; 
+	weirs.h1 = [5.1 5.2 5.0]; 
+	weirs.Cd1 = [0.6 0.6 0.6]; 	
+	weirs.x2 = [20 25]; 
+	weirs.y2 = [200 200]; 
+	weirs.h2 = [5.1 5.2]; 
+	weirs.Cd2 = [0.6 0.6]; 	
+	weirs.name = {'WEIR01','WEIR02'};
+	weirs.length = length(weirs.x1);
+	
+	sfincs_write_weirs(inp.weirfile,weirs);
+	
+Drainage pump and Culvert:
 ^^^^^^^^^
 
+Drainage pumps and culverts are both specified using the same format file, put with a different indication of the type (type=1 is drainage pump, type=2 is culvert).
+A drainage pump can move water from one location to another with a certain prescribed discharge given that there is sufficient water at the retraction location.
+For culverts also a certain discharge capacity of the culvert is prescribed, but then the actual water level gradient is used to determine how much water will actually flow through the culvert.
+Input consists of the x&y locations of the sink (retraction point) and source points (outflow point) followed by the type.
+The discharge capacity is prescribed using the par1 parameter, parameters par2<>par5 are not used right now but included for future flexibility for implementing other structure types.
 
-Culvert:
-^^^^^^^^^
 
+**drnfile = sfincs.drn**
 
+.. code-block:: text
+
+	<xsnk1> <ysnk1> <xsrc1> <ysrc1> <type1> <par1-1> par2-1 par3-1 par4-1 par5-1
+	<xsnk2> <ysnk2> <xsrc2> <ysrc2> <type2> <par1-2> par2-2 par3-2 par4-2 par5-2
+
+	e.g. pump:
+	50.00        25.00       150.00        25.00 1    0.345    0.000    0.000    0.000    0.000
+       	75.00        25.00       125.00        25.00 1    0.345    0.000    0.000    0.000    0.000
+       
+       	e.g. culvert:
+       	50.00        25.00       150.00        25.00 2    0.345    0.000    0.000    0.000    0.000
+       	75.00        25.00       125.00        25.00 2    0.345    0.000    0.000    0.000    0.000
+	
+**Matlab example using OET**
+
+.. code-block:: text
+
+	inp.drnfile = 'sfincs.drn';
+
+	jj=1;
+	drain(jj).xsnk = 75; %sink x-coordinate(s), from where water is taken
+	drain(jj).ysnk = 25; %sink y-coordinate(s)
+	drain(jj).xsrc = 125; %source x-coordinate(s), to where water is discharged
+	drain(jj).ysrc = 25; %source x-coordinate(s)
+	drain(jj).type = 1; %1= pump, 2=culvert
+	drain(jj).par1 = 1; % possible drainage discharge in m3/s
+	drain(jj).par2 = 0; % not used yet
+	drain(jj).par3 = 0; % not used yet
+	drain(jj).par4 = 0; % not used yet
+	drain(jj).par5 = 0; % not used yet    
+
+	sfincs_write_drainage_file(inp.drnfile,drain)	
+	
 
