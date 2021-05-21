@@ -23,16 +23,57 @@ The documentation is however still under construction, mail 'tim.leijnse@deltare
 Also let us know when you are not yet a user of SFINCS, but are interested to get started!
 The SFINCS executable is not yet shared open source, but will be in the future, and maybe in the meantime a collaboration is possible.
 
+Documentation
+=============
+
+**Introduction**
+
+* :doc:`overview`
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :hidden:   
+   :caption: Introduction:
    
    overview
+   
+**User manual**  
+
+* :doc:`input`
+* :doc:`input_forcing`
+* :doc:`input_structures`
+
+.. toctree::
+   :maxdepth: 3
+   :hidden:
+   :caption: User manual:
+   
    input
    input_forcing
    input_structures
+   
+**Overview parameters**   
+
+* :doc:`parameters`
+* :doc:`output`
+
+.. toctree::
+   :maxdepth: 3   
+   :hidden:
+   :caption: Overview parameters:
+   
    parameters
    output
+   
+**Getting started**    
+
+* :doc:`example`
+
+.. toctree::
+   :maxdepth: 3   
+   :hidden:
+   :caption: Getting started:
+   
    example
    
     

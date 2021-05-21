@@ -1,5 +1,5 @@
 User manual - structures
-=======
+======================
 
 Overview
 ----------------------
@@ -21,8 +21,8 @@ Structures
 
 SFINCS consists of multiple options for adding structures that can divert or block flow of water, which can be used to simulate flood hazard reduction methods.
 
-Thin dam:
-^^^^^^^^^
+Thin dam
+^^^^^^^^^^^^^^^^^^
 
 With a thin dam flow through certain grid cells is completely blocked (i.e. an infinitely high wall).
 One can provide multiple polylines within one file, a maximum of 5000 supplied points is supported.
@@ -70,7 +70,7 @@ The supplied polylines are snapped onto the SFINCS grid within the model.
 	sfincs_write_thin_dams(inp.thdfile,thindams);
 
 Weirs:
-^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 Weirs are in principle the same as a thin dam, but then with a certain height (levee).
 When the water level on either or both sides of the weir are higher than that of the weir, a flux over the weir is calculated.
@@ -127,7 +127,7 @@ The supplied polylines are snapped onto the SFINCS grid within the model.
 	sfincs_write_weirs(inp.weirfile,weirs);
 	
 Drainage pump and Culvert:
-^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 Drainage pumps and culverts are both specified using the same format file, put with a different indication of the type (type=1 is drainage pump, type=2 is culvert).
 A drainage pump can move water from one location to another with a certain prescribed discharge given that there is sufficient water at the retraction location.
