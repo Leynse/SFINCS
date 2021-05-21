@@ -50,7 +50,7 @@ If desired the grid can also be rotated using 'rotation', in degrees from the x-
 	dy              = 100
 	rotation        = 45
 	
-* Matlab example using OET *
+**Matlab example using OET**
 
 .. code-block:: text
 	
@@ -326,7 +326,7 @@ In the initialisation phase within the model, all cells with an elevation below 
 For more flexibility, this can also be prescribed spatially varying which can be relevant for coastal, riverine and tsunami cases.
 This 'inifile' is so far only supported using a ascii file.
 
-** zsini **
+**zsini**
 
 .. code-block:: text
 
@@ -344,7 +344,7 @@ This 'inifile' is so far only supported using a ascii file.
 	1.0 	1.2
 	0.0	0.0
 	
-* Matlab example*
+**Matlab example**
 
 .. code-block:: text	
 
@@ -417,18 +417,19 @@ For binary or ascii files the output will be written to separate files, of which
 Numerical parameters
 ^^^^^^^^^^^^^^^^^^
 
-* TODO: describe alpha, theta etc
-
 **alpha**
+
 'alpha' is the additional time step limiter besides the courant criteria.
 By default this is set to 0.75, in case model simulations become instable for some reason this value can be reduced.
 It is recommended to use values within the range [0.1 <> 0.75].
 
 **theta**
+
 'theta' sets the implicitness of the numerical scheme of SFINCS.
 The default value is 0.9 which is recommended for the regular version of SFINCS, for the subgrid version a value of 0.95 is recommended.
 
 **advection**
+
 'advection' sets what version of the advection term to use in the momentum equation, varying between the default of no advection at all (advection = 0), 1D advection terms (advection = 1) and full 2D advection terms (advection = 2).
 Generally it is only needed to turn on advection in case of modelling waves or super-critical flow.
 
