@@ -5,9 +5,9 @@ Introduction
 ----------------------
 
 SFINCS models can be setup using simple ascii text and binary input files, which can be generated on whatever platform suiting you as a user best.
-To make the setting up of basic models easier, making a SFINCS model is supported by the two easy setup tools Delft Dashboard and HydroMT.
-Additionaly, a range of matlab scripts exist for setting up SFINCS models in the Open Earth Tools.
+To make the setting up of basic models easier, making a SFINCS model is supported by the two easy setup tools called 'Delft Dashboard' and 'HydroMT'.
 These options do not cover setting up subgrid feature type models yet, which is still an advanced user functionality.
+Additionaly, a range of Matlab scripts exist for setting up SFINCS models using the Open Earth Tools for more user flexibility.
 If you need a more tailor-made solution for setting up your SFINCS models get in touch with us!
 
 Delft Dashboard 
@@ -30,6 +30,7 @@ Open Earth Tools
 ----------------------
 
 In the Open Earth Tools section of DDB, a number of Matlab scripts are included to have more flexibility in setting up your SFINCS models.
+Throughout the User Manual examples of how to use these scripts are given in the code blocks '**Matlab example using OET**'.
 For a general overview of possible input files and how to create them using Matlab scripts see: https://svn.oss.deltares.nl/repos/openearthtools/trunk/matlab/applications/DelftDashBoard/general/sfincs/fileio/Input_format_examples.m
-For getting started with open earth tools see: https://publicwiki.deltares.nl/display/OET/OpenEarth
+For getting started with Open Earth Tools see: https://publicwiki.deltares.nl/display/OET/OpenEarth
 

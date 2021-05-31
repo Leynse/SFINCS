@@ -75,7 +75,7 @@ The supplied polylines are snapped onto the SFINCS grid within the model.
 	
 	sfincs_write_thin_dams(inp.thdfile,thindams);
 
-Weirs:
+Weirs
 ^^^^^^^^^^^^^^^^^^
 
 Weirs are in principle the same as a thin dam, but then with a certain height (levee).
@@ -132,7 +132,7 @@ The supplied polylines are snapped onto the SFINCS grid within the model.
 	
 	sfincs_write_weirs(inp.weirfile,weirs);
 	
-Drainage pump and Culvert:
+Drainage pump and Culvert
 ^^^^^^^^^^^^^^^^^^
 
 Drainage pumps and culverts are both specified using the same format file, put with a different indication of the type (type=1 is drainage pump, type=2 is culvert).

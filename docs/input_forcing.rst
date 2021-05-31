@@ -114,6 +114,35 @@ The signal should be around 0.
 	2 	-0.02	-0.04
 	4 	0.10	0.03
 	
+Netcdf format input
+^^^^^^^^^
+
+As alternative, the bnd/bzs/bzi data can also be specified using a single Netcdf file with FEWS input type format 'netbndbzsbzifile'.
+Making this format netcdf file can be easily done using the OET Matlab script 'sfincs_write_netcdf_bndbzsbzifile.m'
+
+**Matlab example using OET**
+
+.. code-block:: text
+
+	inp.netbndbzsbzifile = 'sfincs_netbndbzsbzifile.nc';
+	 
+	x = [0, 100, 200];
+	y = [50, 150, 250];
+	 
+	EPSGcode = 32631;
+	UTMname = 'UTM31N';
+	 
+	refdate  = '1970-01-01 00:00:00'; 
+	% possibly use formatOut = 'yyyy-mm-dd HH:MM:SS'; datestr(tref, formatOut); 
+	
+	time = [0, 60];
+	
+	rng('default');
+	bzs = -1 * randi([0 10],length(time),length(x));
+	bzi = -1 * randi([0 10],length(time),length(x));
+	
+	sfincs_write_netcdf_bndbzsbzifile(inp.netbndbzsbzifile, x, y, EPSGcode, UTMname, refdate, time, bzs, bzi)
+	
 Discharges
 ---------
 
@@ -186,16 +215,15 @@ Meteo
 
 There are a few different options to specify wind and rain input: 
 
-1) Use a spatially varying spiderweb input (as in Delft3D) for only the wind input, or for the wind as well as the rain input. 
+1) Use a spatially varying spiderweb input (as in Delft3D/Delft3D FM) for only the wind and pressure input, or for the wind as well as the rain input. 
 
-2) Use a spatially varying grid input (as in Delft3D) for u- and v-velocities and/or the rain input. 
+2) Use a spatially varying grid input (as in Delft3D) for u- and v- wind velocities and/or the rain and pressure input. 
 
-3) Use a spatially uniform input for wind and rain, which is faster but also more simplified.
+3) Use a spatially varying grid input using a netcdf file based on a FEWS input type format for wind or rain input.
 
-4) Make a combination, for instance use a spiderweb for the wind input and a spatially uniform rain-input. When combining, test whether the forcing is as wanted since not all combinations might be possible.
+4) Use a spatially uniform input for wind and rain, which is faster but also more simplified.
 
-
-* TODO: describe netamuamvfile, netamprfile and netbndbzsbzifile and pressure optoins
+5) Make a combination, for instance use a spiderweb for the wind input and a spatially uniform rain-input. When combining, test whether the forcing is as wanted since not all combinations might be possible.
 
 **Spiderweb-input:**
 

@@ -397,6 +397,22 @@ This 'inifile' is so far only supported using a ascii file.
 	zini=zeros(inp.nmax, inp.mmax);
 	zini(:,1:24+1)=0.6;       
 	save(inp.inifile,'-ascii','zini');	
+	
+Restart file
+^^^^^^^^^^^^^^^^^^	
+
+In order to run SFINCS without spinup of water levels in a subsequent simulation, the waterlevels at the final time step of the former can be saved as ascii-file using the 'restartfile' option.
+This restart file can then be specified as 'inifile' in a subsequent SFINCS run, in order to start the simulation with the final water levels of the prior simulation.
+Currently only water levels are supported, not fluxes.
+
+.. code-block:: text	
+
+	restartfile 	= ./simulation_01/sfincs.restart
+
+	> in the next SFINCS simulation specify:
+
+	inifile 	= ./simulation_01/sfincs.restart
+	restartfile 	= ./simulation_02/sfincs.restart
 
 Model settings
 ----------------------
