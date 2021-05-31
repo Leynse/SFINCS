@@ -32,8 +32,16 @@ Water levels
 To specify water-level time-series to the boundary cells (msk=2), first the input locations have to be specified in 'sfincs.bnd'.
 For every boundary point there is interpolated with a weighted average between the two closest input locations.
 
+.. figure:: ./figures/SFINCS_boundary_input_grid.PNG
+   :width: 400px
+   :align: center
 
-**bndfile - sfincs.bnd**
+   Example of the weighted interpolation of boundary input locations to the msk=2 boundary cells.
+
+Water level points
+^^^^^^^^^
+
+**bndfile = sfincs.bnd**
 
 .. code-block:: text
 
@@ -45,7 +53,22 @@ For every boundary point there is interpolated with a weighted average between t
 	400000 	1200000
 	480000 	1250000
 
+**Matlab example using OET**
+
+.. code-block:: text	
+	
+	points.x(1) = 400000;
+	points.y(1) = 1200000;
+	points.x(2) = 480000;
+	points.y(2) = 1250000;
+	
+	sfincs_write_boundary_points(inp.bndfile,points)
+	
+Water level time-series
+^^^^^^^^^
+
 Then in the file 'sfincs.bzs' the water level time-series are specified per input location.
+Times are specified in seconds with respect to SFINCS' internal reference time 'tref', as specified in sfincs.inp.
 
 **bzsfile = sfincs.bzs**
 
@@ -60,6 +83,15 @@ Then in the file 'sfincs.bzs' the water level time-series are specified per inpu
 	3600 	0.60	0.80
 	7200 	0.45	0.85
 	
+**Matlab example using OET**
+
+.. code-block:: text	
+	
+	time = [0, 3600, 7200];
+	waterlevels = [0.5, 0.75; 0.6, 0.8; 0.45, 0.85];
+	
+	sfincs_write_boundary_conditions(inp.bzsfile,time,waterlevels)	
+	
 Waves
 ----------------------
 
@@ -67,7 +99,7 @@ When forcing waves, besides providing a bzsfile with slowly varying water level 
 This can contain infragravity and/or short waves.
 Do note that the forced signal should be the incoming wave component only, not including the reflecting one, since this is computed by SFINCS internally as well.
 The signal should be around 0.
-Do note that the input timestep should be the same in both the bzs and bzi files!
+**Do note that the input timestep should be the same in both the bzs and bzi files!**
 
 **bzifile = sfincs.bzi**
 
@@ -85,12 +117,17 @@ Do note that the input timestep should be the same in both the bzs and bzi files
 Discharges
 ---------
 
-Discharge points
-^^^^^^^^^
-
 A simple implementation of discharge points is added to SFINCS, specify values in m^3/s. 
 First specify the locations in 'sfincs.src'.
 
+.. figure:: ./figures/SFINCS_discharge_input_grid.PNG
+   :width: 400px
+   :align: center
+   
+   Example of how discharge input points from 2 different sources are snapped to the grid of SFINCS.
+
+Discharge points
+^^^^^^^^^   
 
 **srcfile = sfincs.src**
 
@@ -105,10 +142,22 @@ First specify the locations in 'sfincs.src'.
 	300000 	1500000
 	380000 	1650000
 
+**Matlab example using OET**
+
+.. code-block:: text	
+	
+	points.x(1) = 300000;
+	points.y(1) = 1500000;
+	points.x(2) = 380000;
+	points.y(2) = 1650000;
+	
+	sfincs_write_boundary_points(inp.srcfile,points)
+	
 Discharge time-series
 ^^^^^^^^^
 
 Then in the file 'sfincs.dis' the discharge time-series are specified per input location.
+Times are specified in seconds with respect to SFINCS' internal reference time 'tref', as specified in sfincs.inp.
 
 **disfile = sfincs.dis**
 
@@ -122,6 +171,15 @@ Then in the file 'sfincs.dis' the discharge time-series are specified per input 
 	0 	100	1000
 	3600 	300	1100
 	7200 	0	1300
+	
+**Matlab example using OET**
+
+.. code-block:: text	
+	
+	time = [0, 3600, 7200];
+	discharge = [100, 1000; 300, 1100; 0, 1300];
+	
+	sfincs_write_boundary_conditions(inp.disfile,time,discharge)
 	
 Meteo
 ---------

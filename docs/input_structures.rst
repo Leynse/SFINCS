@@ -28,6 +28,12 @@ With a thin dam flow through certain grid cells is completely blocked (i.e. an i
 One can provide multiple polylines within one file, a maximum of 5000 supplied points is supported.
 The supplied polylines are snapped onto the SFINCS grid within the model.
 
+.. figure:: ./figures/SFINCS_thindam_grid.png
+   :width: 400px
+   :align: center
+
+   Example of how thin dam/weir input points from 2 different polylines are snapped to the grid of SFINCS.
+
 **thdfile = sfincs.thd**
 
 .. code-block:: text
@@ -135,6 +141,11 @@ For culverts also a certain discharge capacity of the culvert is prescribed, but
 Input consists of the x&y locations of the sink (retraction point) and source points (outflow point) followed by the type.
 The discharge capacity is prescribed using the par1 parameter, parameters par2<>par5 are not used right now but included for future flexibility for implementing other structure types.
 
+.. figure:: ./figures/SFINCS_drainage_grid.png
+   :width: 400px
+   :align: center
+
+   Example of how drainage pump/culvert input points with sink and source locations from 2 different structures are snapped to the grid of SFINCS.
 
 **drnfile = sfincs.drn**
 
@@ -158,16 +169,16 @@ The discharge capacity is prescribed using the par1 parameter, parameters par2<>
 	inp.drnfile = 'sfincs.drn';
 
 	jj=1;
-	drain(jj).xsnk = 75; %sink x-coordinate(s), from where water is taken
-	drain(jj).ysnk = 25; %sink y-coordinate(s)
-	drain(jj).xsrc = 125; %source x-coordinate(s), to where water is discharged
-	drain(jj).ysrc = 25; %source x-coordinate(s)
-	drain(jj).type = 1; %1= pump, 2=culvert
-	drain(jj).par1 = 1; % possible drainage discharge in m3/s
-	drain(jj).par2 = 0; % not used yet
-	drain(jj).par3 = 0; % not used yet
-	drain(jj).par4 = 0; % not used yet
-	drain(jj).par5 = 0; % not used yet    
+	drain(jj).xsnk = 75; 	% sink x-coordinate(s), from where water is taken
+	drain(jj).ysnk = 25; 	% sink y-coordinate(s)
+	drain(jj).xsrc = 125; 	% source x-coordinate(s), to where water is discharged
+	drain(jj).ysrc = 25; 	% source x-coordinate(s)
+	drain(jj).type = 1; 	% 1= pump, 2=culvert
+	drain(jj).par1 = 0.345; % possible drainage discharge in m3/s
+	drain(jj).par2 = 0; 	% not used yet
+	drain(jj).par3 = 0; 	% not used yet
+	drain(jj).par4 = 0; 	% not used yet
+	drain(jj).par5 = 0; 	% not used yet    
 
 	sfincs_write_drainage_file(inp.drnfile,drain)	
 	
