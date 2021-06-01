@@ -215,34 +215,88 @@ Meteo
 
 There are a few different options to specify wind and rain input: 
 
-1) Use a spatially varying spiderweb input (as in Delft3D/Delft3D FM) for only the wind and pressure input, or for the wind as well as the rain input. 
+1) Use a spatially varying spiderweb input (as in Delft3D/Delft3D FM) for forcing tropical cyclones only the wind and pressure input, or for the wind as well as the rain input. 
 
-2) Use a spatially varying grid input (as in Delft3D) for u- and v- wind velocities and/or the rain and pressure input. 
+2) Use a spatially varying grid input (as in Delft3D) for u- and v- wind velocities and/or the rain and/or pressure input. 
 
 3) Use a spatially varying grid input using a netcdf file based on a FEWS input type format for wind or rain input.
 
 4) Use a spatially uniform input for wind and rain, which is faster but also more simplified.
 
-5) Make a combination, for instance use a spiderweb for the wind input and a spatially uniform rain-input. When combining, test whether the forcing is as wanted since not all combinations might be possible.
+5) Make a combination, for instance use a spiderweb for the wind input and a spatially uniform rain-input. When combining, test whether the forcing is as wanted since not all combinations of the above options might be possible and/or changing depending on specific code version.
+
+.. figure:: ./figures/SFINCS_documentation_forcing_meteo.png
+   :width: 300px
+   :align: center
+
+   Overview of possible meteo input file options and names
+
+
+Spatially varying spiderweb
+^^^^^^^^^
+
+The option of forcing spiderweb files is only relevant for tropical cyclones, best is to put grid units in the same projected coordinate reference system (UTM zone) as the SFINCS grid.
+For generation of these spiderweb files use Deltares' Wind Enhancement Scheme tool (WES, see https://content.oss.deltares.nl/delft3d/manuals/Delft3D-WES_User_Manual.pdf or OET Matlab equivalent) or get in touch.
 
 **Spiderweb-input:**
 
-spwfile = sfincs.spw
+.. code-block:: text
+
+	spwfile = tropical_cyclone.spw
 
 
-**Delft3D-meteo input:**
+Spatially varying gridded
+^^^^^^^^^
 
-Wind:
+Spatially varying meteo input on constant grid can be forced using the native Delft3D type meteo input files, using the same file conventions.
+For wind this is wind in x-&y-direction (amu, amv), precipitation (ampr) and atmospheric pressure (amp).
+The grid has a constant resolution dx&dy, which can be in the native (usually coarser than your SFINCS grid) resolution of the meteo data.
+Within SFINCS this is interpolated onto the actual SFINCS grid.
 
-amufile = sfincs.amu
+**Wind:**
 
-amvfile = sfincs.amv
+.. code-block:: text
 
-Rain:
+	**amufile = sfincs.amu**
 
-amprfile = sfincs.ampr
+	within amufile:
 
-These files have this general header of 13 lines which SFINCS expects, after which the TIME and data blocks are given per time frame:
+	quantity1        = x_wind
+	unit1            = m s-1
+	
+	**amvfile = sfincs.amv**
+
+	within amvfile:
+
+	quantity1        = y_wind
+	unit1            = m s-1
+	
+**Rain:**
+
+.. code-block:: text
+
+	**amprfile = sfincs.ampr**
+	
+	within amprfile:
+	
+	quantity1        = precipitation
+	unit1            = mm/hr
+	
+**Atmospheric pressure:**
+
+.. code-block:: text
+
+	**ampfile = sfincs.amp**
+
+	within ampfile:
+	
+	quantity1        = air_pressure
+	unit1            = Pa		
+
+**Delft3D-meteo ascii type input:**
+
+These files have this general header of **13 lines** which SFINCS expects (**Check this after creating your input files!**), after which the TIME and data blocks are given per time frame. 
+Only use 1 quantity per file:
 
 .. code-block:: text
 
@@ -265,10 +319,86 @@ These files have this general header of 13 lines which SFINCS expects, after whi
 	TIME = 90831.0 hours since 1970-01-01 00:00:00 +00:00  # 1980-05-12 15:00:00
  	0 0 0 0 
 	0 0 0 0
-	
-**Spatially-uniform wind input:**
+		
+**Matlab example using OET**
 
-'vmag' is the wind speed in m/s, 'vdir' is the wind direction in nautical from where the wind is coming. The input format is the same as with Delft3D.
+.. code-block:: text	
+
+	TODO: STILL TEST THIS BLOCK and varargin (gridded?) !
+	
+	data.parameter.time = datenum(2018,01,01):3/24:datenum(2018,01,02);
+	data.parameter.x = 0:5000:25000;
+	data.parameter.y = 10000:5000:40000;
+
+	data.parameter.val = ones(length(data.parameter.time), length(data.parameter.y), length(data.parameter.x));
+	
+	write_meteo_file_delft3d(inp.amufile, data, 'x_wind', 'm s-1', datenum(1970,01,01), varargin);
+	
+	see 'write_meteo_file_delft3d.m' for more information.
+	
+Spatially varying gridded netcdf
+^^^^^^^^^
+
+The same spatially varying gridded input as using Delft3d' ascii input files can be specified using FEWS compatible Netcdf input files.
+Here for the wind the amu&amv files are combined into 1 Netcdf file (netamuamvfile), the precipitation is in a separate input file (netamprfile).
+
+**Note, that for very large Netcdf files (in size), an out-of-memory might occur when running SFINCS.**
+If this is the case, switch to Delft3D ascii type input as described above or get in touch with us to find a solution.
+Making this format netcdf file can be easily done using the OET Matlab scripts 'sfincs_write_netcdf_amuamvfile.m' and 'sfincs_write_netcdf_amprfile.m'.
+See those files for more information.
+
+**Matlab example using OET - netamuamvfile**
+
+.. code-block:: text
+
+	inp.netamuamvfile = 'sfincs_netamuamvfile.nc';
+	 
+	x = [0, 100, 200];
+	y = [50, 150, 250];
+	 
+	EPSGcode = 32631;
+	UTMname = 'UTM31N';
+	 
+	refdate  = '1970-01-01 00:00:00'; 
+	% possibly use formatOut = 'yyyy-mm-dd HH:MM:SS'; datestr(tref, formatOut); 
+	
+	time = [0, 60];
+	
+	rng('default');
+	amu = -1 * randi([0 10],length(time),length(y),length(x));
+	amv = 1 * randi([0 10],length(time),length(y),length(x));
+	
+	sfincs_write_netcdf_amuamvfile(inp.netamuamvfile, x, y, EPSGcode, UTMname, refdate, time, amu, amv)
+
+**Matlab example using OET - netamprfile**
+
+.. code-block:: text
+
+	inp.netamprfile = 'sfincs_netamprfiles.nc';
+	 
+	x = [0, 100, 200];
+	y = [50, 150, 250];
+	 
+	EPSGcode = 32631;
+	UTMname = 'UTM31N';
+	 
+	refdate  = '1970-01-01 00:00:00'; 
+	% possibly use formatOut = 'yyyy-mm-dd HH:MM:SS'; datestr(tref, formatOut); 
+	
+	time = [0, 60];
+	
+	rng('default');
+	ampr = -1 * randi([0 10],length(time),length(y),length(x));
+	
+	sfincs_write_netcdf_amuamvfile(inp.netamprfile, x, y, EPSGcode, UTMname, refdate, time, ampr)	
+	
+Spatially uniform
+^^^^^^^^^
+
+**Spatially uniform wind:**
+
+'vmag' is the wind speed in m/s, 'vdir' is the wind direction in nautical from where the wind is coming. The file can be make using OET Matlab script 'sfincs_write_boundary_conditions.m'.
+Times are specified in seconds with respect to SFINCS' internal reference time 'tref', as specified in sfincs.inp.
 
 
 **wndfile = sfincs.wnd**
@@ -284,10 +414,11 @@ These files have this general header of 13 lines which SFINCS expects, after whi
 	3600 	15	180
 	7200 	10	165
 	
-**Spatially-uniform rain input:**
+**Spatially uniform rain:**
 
 
-Rain input in mm/hr.
+Rain input in mm/hr, times are specified in seconds with respect to SFINCS' internal reference time 'tref', as specified in sfincs.inp.
+The file can be make using OET Matlab script 'sfincs_write_boundary_conditions.m'.
 
 **precipfile = sfincs.prcp**
 
@@ -302,17 +433,3 @@ Rain input in mm/hr.
 	3600 	15
 	7200 	10
 	
-**Drag Coefficients:**
-
-The drag coefficients are varying with wind speed and implemented as in Delft3D. 
-The default values are based on Vatvani et al. (2012). 
-There is specified for how many points 'cd_nr' a velocity 'cd_wnd' and a drag coefficient 'cd_val' is specified, the following are the default values:
-
-.. code-block:: text
-
-	cd_nr = 3 
-
-	cd_wnd = 0 28 50 
-
-	cd_val = 0.0010 0.0025 0.0015 
-

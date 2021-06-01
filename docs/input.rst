@@ -498,6 +498,20 @@ Generally it is only needed to turn on advection in case of modelling waves or s
 	alpha 		= 0.75
 	theta 		= 0.9
 	advection 	= 0
+
+**Drag Coefficients:**
+
+The wind drag coefficients are varying with wind speed and implemented as in Delft3D. 
+The default values are based on Vatvani et al. (2012). 
+There is specified for how many points 'cd_nr' a velocity 'cd_wnd' and a drag coefficient 'cd_val' is specified, the following are the default values:
+
+.. code-block:: text
+
+	cd_nr = 3 
+
+	cd_wnd = 0 28 50 
+
+	cd_val = 0.0010 0.0025 0.0015 
 	
 Example of sfincs.inp
 ----------------------
