@@ -85,7 +85,7 @@ One can provide multiple polylines within one file, a maximum of 5000 supplied p
 Besides the x&y locations per points, also the elevation z and a Cd coefficient for the weir formula (recommended to use 0.6).
 The supplied polylines are snapped onto the SFINCS grid within the model.
 
-**thdfile = sfincs.thd**
+**weirfile = sfincs.weir**
 
 .. code-block:: text
 
