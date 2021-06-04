@@ -1,10 +1,10 @@
 Output description
-=====
+======================
 
 In case of netcdf output, the given parameters mean the following:
 
 Parameters netcdf file global (sfincs_map.nc):
------
+----------------------
 
 	x
 	  :description:	Reference date in 'yyyymmdd HHMMSS'
@@ -32,4 +32,4 @@ Parameters netcdf file global (sfincs_map.nc):
 	  :units:	-
 	  
 Parameters netcdf file observation points (sfincs_his.nc):
------		
+----------------------		

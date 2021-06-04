@@ -69,7 +69,8 @@ To describe the local topography and bathymetry, elevation data has be supplied 
 This can be of any multiple of sources, but it is advised that the transition zone between different datasets and between above/below water level are checked with care.
 The elevation is described in the cell centres of the grid.
 
-The elevation is defined in sfincs.dep based on the specified grid, positive is upwards with respect to a reference level (topography has positive values, bathymetry has negative values).
+The elevation is defined in sfincs.dep based on the specified grid, positive is upwards with respect to a certain reference level (topography has positive values, bathymetry has negative values).
+The reference level is not known to SFINCS (and not relevant for the computation), so a user itself must be consistent in the use of specifying elevations in different files (elevation, initial water level, boundary conditions) always to the same vertical reference level (whether it is local MSL, NAP, EGM96 etc. etc.).
 
 
 **depfile = sfincs.dep**
