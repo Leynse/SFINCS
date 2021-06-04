@@ -52,17 +52,26 @@ Documentation
    input_forcing
    input_structures
    
-**Overview parameters**   
+**Overview input parameters and files**   
 
 * :doc:`parameters`
+
+.. toctree::
+   :maxdepth: 3   
+   :hidden:
+   :caption: Input parameters and files:
+   
+   parameters
+   
+**Overview model output and messages**   
+
 * :doc:`output`
 
 .. toctree::
    :maxdepth: 3   
    :hidden:
-   :caption: Overview parameters:
+   :caption: Model output and messages:
    
-   parameters
    output
    
 **Getting started**    

@@ -14,13 +14,13 @@ Parameters for model input
 	  :units:		-
 	  :default:		0
 	  :min:			1
-	  :max:			Inf (recommended is to limit the total number of active cells to 5 million)
+	  :max:			Inf (recommended is to limit the total number of active cells to max 3 million)
 	nmax
 	  :description:		Number of grid cells in y-direction
 	  :units:		-
 	  :default:		0
 	  :min:			1
-	  :max:			Inf (recommended is to limit the total number of active cells to 5 million)	  
+	  :max:			Inf (recommended is to limit the total number of active cells to max 3 million)	  
 	dx
 	  :description:		Grid size in x-direction
 	  :units:		m
@@ -228,8 +228,8 @@ Parameters for model output
 	  :units:		string
 	  :default:		off		
 	  
-Possible input files
-----------------------
+Input files
+======================	 
 
 SFINCS consists of many different input files, this overview gives a description, whether they are required or not, unit and format (bin = binary, asc = ascii and net = netcdf).
 
@@ -241,7 +241,7 @@ SFINCS consists of many different input files, this overview gives a description
 	
 
 Domain
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 	sfincs.inp
 	  :description:		General input file of SFINCS describing all model settings, the domain, forcing and structures.
@@ -299,20 +299,20 @@ Domain
 	  :format:		asc		
 	  
 Forcing - Water levels and waves
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 	bndfile = sfincs.bnd
-	  :description:		To specify water-level time-series to the boundary cells (msk=2), first the input locations have to be specified in ‘sfincs.bnd’.
+	  :description:		To specify water-level time-series to the boundary cells (msk=2), first the input locations have to be specified in 'sfincs.bnd'.
 	  :units:		m in projected UTM zone	  
 	  :required:		Only when specifying water levels and waves.
 	  :format:		asc	 
 	bzsfile = sfincs.bzs
-	  :description:		In the file ‘sfincs.bzs’ the (slowly varying) water level time-series are specified per input location. 
+	  :description:		In the file 'sfincs.bzs' the (slowly varying) water level time-series are specified per input location. 
 	  :units:		m above reference level
 	  :required:		Only when specifying water levels.
 	  :format:		asc	 	
 	bzifile = sfincs.bzi
-	  :description:		Tn the file ‘sfincs.bzi’ the quickly varying water level time-series due to incoming waves are specified per input location. Do note that the input timestep should be the same in both the bzs and bzi files!
+	  :description:		Tn the file 'sfincs.bzi' the quickly varying water level time-series due to incoming waves are specified per input location. Do note that the input timestep should be the same in both the bzs and bzi files!
 	  :units:		m around mean water level of bzsfile
 	  :required:		Only when specifying waves.
 	  :format:		asc		
@@ -323,21 +323,21 @@ Forcing - Water levels and waves
 	  :format:		net	 
 	  
 Forcing - Discharges
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 	srcfile = sfincs.src
-	  :description:		To specify discharge points, first the input locations have to be specified in ‘sfincs.src’.
+	  :description:		To specify discharge points, first the input locations have to be specified in 'sfincs.src'.
 	  :units:		m in projected UTM zone
 	  :required:		Only when specifying discharges.
 	  :format:		asc	 
 	disfile = sfincs.dis
-	  :description:		In the file ‘sfincs.dis’ the discharge time-series are specified per input location. 
+	  :description:		In the file 'sfincs.dis' the discharge time-series are specified per input location. 
 	  :units:		m^3/s
 	  :required:		Only when specifying discharges.
 	  :format:		asc	 	
 	  
 Forcing - Meteo
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 	spwfile = sfincs.spw
 	  :description:		Spiderweb file including wind speed, direction, pressure (and possibly rainfall).
@@ -386,7 +386,7 @@ Forcing - Meteo
 	  :format:		net	 		  
 	  
 Structures
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 	thdfile = sfincs.thd
 	  :description:		With a thin dam flow through certain grid cells is completely blocked (i.e. an infinitely high wall).
