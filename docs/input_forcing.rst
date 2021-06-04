@@ -149,7 +149,7 @@ Discharges
 A simple implementation of discharge points is added to SFINCS, specify values in m^3/s. 
 First specify the locations in 'sfincs.src'.
 
-.. figure:: ./figures/SFINCS_discharge_input_grid.PNG
+.. figure:: ./figures/SFINCS_discharge_input_grid.png
    :width: 400px
    :align: center
    

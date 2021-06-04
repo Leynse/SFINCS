@@ -44,6 +44,7 @@ extensions = [
     'sphinx.ext.mathjax',
    # 'sphinxcontrib.bibtex',
     'sphinx.ext.viewcode',  
+    #'sphinxcontrib.partable',    
 ]
 
 # Add any paths that contain templates here, relative to this directory.

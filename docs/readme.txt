@@ -8,6 +8,8 @@ To build the docs locally:
 
 - activate environment: 'conda activate hydromt-sfincs'
 
+- add sphinxcontrib package: conda install sphinxcontrib
+
 - do: 'make html'
 
 > The HTML pages are in _build\html.

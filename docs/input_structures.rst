@@ -66,11 +66,12 @@ The supplied polylines are snapped onto the SFINCS grid within the model.
 
 	inp.thdfile = 'sfincs.thd';
 	
-	thindams.x1 = [0 10 20]; 
-	thindams.y1 = [100 100 100]; 
-	thindams.x2 = [20 25]; 
-	thindams.y2 = [200 200]; 
-	thindams.name = {'THD01','THD02'};
+	thindams(1).x = [0 10 20]; 
+	thindams(1).y = [100 100 100]; 
+	thindams(1).name = {'THD01'};	
+	thindams(2).x = [20 25]; 
+	thindams(2).y = [200 200]; 
+	thindams(2).name = {'THD02'};
 	thindams.length = length(thindams.x1);
 	
 	sfincs_write_thin_dams(inp.thdfile,thindams);
@@ -85,7 +86,7 @@ One can provide multiple polylines within one file, a maximum of 5000 supplied p
 Besides the x&y locations per points, also the elevation z and a Cd coefficient for the weir formula (recommended to use 0.6).
 The supplied polylines are snapped onto the SFINCS grid within the model.
 
-**thdfile = sfincs.thd**
+**weirfile = sfincs.weir**
 
 .. code-block:: text
 
@@ -101,12 +102,12 @@ The supplied polylines are snapped onto the SFINCS grid within the model.
 	
 	e.g.
 	
-	WEIR01
+	weir01
 	3 4
 	0 100 5.1 0.6
 	10 100 5.2 0.6
 	20 100 5.0 0.6
-	WEIR02
+	weir02
 	2 4
 	20 200 5.1 0.6
 	25 200 5.1 0.6	
@@ -114,23 +115,19 @@ The supplied polylines are snapped onto the SFINCS grid within the model.
 **Matlab example using OET**
 
 .. code-block:: text
-
-	STILL CHECK 
 	
 	inp.weirfile = 'sfincs.weir';
 	
-	weirs.x1 = [0 10 20]; 
-	weirs.y1 = [100 100 100]; 
-	weirs.h1 = [5.1 5.2 5.0]; 
-	weirs.Cd1 = [0.6 0.6 0.6]; 	
-	weirs.x2 = [20 25]; 
-	weirs.y2 = [200 200]; 
-	weirs.h2 = [5.1 5.2]; 
-	weirs.Cd2 = [0.6 0.6]; 	
-	weirs.name = {'WEIR01','WEIR02'};
-	weirs.length = length(weirs.x1);
+	weirs(1).x = [0 10 20]; 
+	weirs(1).y = [100 100 100]; 
+	weirs(1).z = [5.1 5.2 5.0]; 
+	weirs(1).par1 = [0.6 0.6 0.6]; 	
+	weirs(2).x = [20 25]; 
+	weirs(2).y = [200 200]; 
+	weirs(2).z = [5.1 5.2]; 
+	weirs(2).par1 = [0.6 0.6]; 	
 	
-	sfincs_write_weirs(inp.weirfile,weirs);
+	sfincs_write_obstacle_file_1par(inp.weirfile,weirs)	
 	
 Drainage pump and Culvert
 ^^^^^^^^^^^^^^^^^^
