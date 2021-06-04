@@ -1,35 +1,35 @@
-Output parameters
+Output description
 =====
 
-Different output parameters can be changed, see below. Also observation points can be added, see below.
+In case of netcdf output, the given parameters mean the following:
 
-Parameters
+Parameters netcdf file global (sfincs_map.nc):
 -----
 
-
-	tref
+	x
 	  :description:	Reference date in 'yyyymmdd HHMMSS'
-	  :units:	-
-	  :default:	
-	tstart
+	  :units:	m in projected reference system
+	y
 	  :description:	Start date in 'yyyymmdd HHMMSS'
-	  :units:	-	
-	  :default:					  
-	tstop
+	  :units:	m in projected reference system
+	zb
 	  :description:	Stop date in 'yyyymmdd HHMMSS'
 	  :units:	m
-	  :default:	
-	dtout
+	msk
 	  :description:	Time-step global map output.
-	  :units:	s
-	  :default:	0
-	dthisout
-	  :description:	Time-step observation points output.
-	  :units:	s
-	  :default:	600
-	dtwnd
+	  :units:	-
+	zs
+	  :description:	Instantaneous water level per 'dtout' timestep, corresponding with netcdf variable 'time' 
+	  :units:	m above reference level
+	h
 	  :description:	Time-interval wind update (only for spiderweb)
-	  :units:	s
-	  :default:	1800
-
-		
+	  :units:	m
+	zsmax
+	  :description:	Maximum water level per 'dtmaxout' timestep, only given if dtmaxout>0, corresponding with netcdf variable 'timemaxout' 
+	  :units:	m above reference level
+	inp
+	  :description:	Copy of all the supplied input to SFINCS from 'sfincs.inp'.
+	  :units:	-
+	  
+Parameters netcdf file observation points (sfincs_his.nc):
+-----		
