@@ -9,6 +9,8 @@ For super-critical flow conditions or modelling waves, the SFINCS-SSWE version c
 Parameters for model input
 ----------------------
 
+.. partable:: Overview of available keywords related to *
+
 	mmax
 	  :description:		Number of grid cells in x-direction
 	  :units:		-

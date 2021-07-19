@@ -308,6 +308,7 @@ Spatially varying Curve Number:
 %%%%%
 
 For spatially varying infiltration values per cell using the Curve Number method use the scsfile option, with the same grid based input as the depfile using a binary file.
+Note here that in pre-processing the wanted CN values should be converted to S values following: **S = (1000./CN - 10)**
 
 **scsfile = sfincs.scs**
 
@@ -318,17 +319,18 @@ For spatially varying infiltration values per cell using the Curve Number method
 	<curve_number_value x0,y1> <curve_number_value x1,y1>
 
 	e.g.
-	100 	50
-	45	60
+	0 	10
+	5	20
 	
 **Matlab example using OET**
 
 .. code-block:: text
 	
-	curvenumber = 50 * ones(nmax,mmax);
+	CN_values = 50 * ones(nmax,mmax);
+	S_values = (1000./CN - 10)
 	msk = ones(nmax,mmax);
 	
-	sfincs_write_binary_inputs(curvenumber,msk,inp.indexfile,inp.scsfile,inp.mskfile)
+	sfincs_write_binary_inputs(S_values,msk,inp.indexfile,inp.scsfile,inp.mskfile)
 	
 
 Observation points
