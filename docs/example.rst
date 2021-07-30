@@ -25,6 +25,7 @@ Besides globally available DEMs it can also retrieve spatially varying infiltrat
 Also, it is possible to setup a offline coupled model together with the hydrological wflow model that will provide boundary conditions of river discharge.
 For more information regarding the SFINCS plugin of HydroMT see: https://deltares.github.io/hydromt_sfincs/
 For more information regarding HydroMT in general see: https://deltares.github.io/hydromt/
+For more user flexibility, it is also possible now to access individual setup components to build your own model or forcing from scratch, see: https://deltares.github.io/hydromt_sfincs/latest/user_guide/sfincs.html
 
 Open Earth Tools
 ----------------------
