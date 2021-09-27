@@ -23,6 +23,7 @@ The SFINCS executable is not yet shared open source, but will be in the future, 
 
 * More information regarding recent advancements with subgrid features can be seen in this online poster: https://agu2020fallmeeting-agu.ipostersessions.com/Default.aspx?s=9C-05-18-CF-F1-2B-17-F0-7A-21-93-E6-13-AE-F3-24
 
+* More information regarding recent comparisons using SFINCS to model waves can be seen in this online poster: https://agu2020fallmeeting-agu.ipostersessions.com/?s=30-38-5A-0C-8E-22-C8-84-CC-46-3C-95-18-80-C2-76&token=5r05NKrASrFrnkybTgXa4Y_XvgfV233Dazers0d2Zzo
 
 Documentation
 =============
