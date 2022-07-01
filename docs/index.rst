@@ -9,7 +9,7 @@ Welcome to SFINCS's documentation!
 'SFINCS' is the reduced-complexity model designed for super-fast modelling of compound flooding events in a dynamic way!
 
 .. figure:: ./figures/SFINCS_logo.png
-   :width: 600px
+   :width: 300px
    :align: center
    
 This online documentation describes the input files and parameters of the SFINCS model (Super-Fast INundation of CoastS).
